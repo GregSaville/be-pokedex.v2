@@ -9,7 +9,6 @@ import java.util.Optional
 @Service
 @Primary
 class PokemonService(val db: PokemonRepository){
-
     fun findAllPokemon(): MutableIterable<Pokemon> = db.findAll()
 
     fun findPokemonById(id: String): Optional<Pokemon> = db.findById(id)

@@ -1,5 +1,6 @@
 package com.bushelpowered.pokedex.service.entities
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonRawValue
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -19,6 +20,5 @@ class Trainer (
     @Column(name="password", nullable = false)
     var password: String,
     @Column(name = "captured_pokemon", nullable = true)
-    @JsonRawValue
     var capturedPokemon: String = ""
     )
