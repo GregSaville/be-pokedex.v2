@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+ <changeSet id="02" author="gsaville">
+     <loadData tableName="pokemon" relativeToChangelogFile="true" file="data/pokedex.csv"
+               separator="," quotchar="&quot;">
+         <column header="id" type="bigint"/>
+         <column header="name" type="varchar(50)"/>
+         <column header="types" type="json"/>
+         <column header="height" type="double"/>
+         <column header="weight" type="double"/>
+         <column header="abilities" type="json"/>
+         <column header="egg_groups" type="json"/>
+         <column header="stats" type="json"/>
+         <column header="genus" type="varchar(100)"/>
+         <column header="description" type="varchar(500)"/>
+     </loadData>
+
+ </changeSet>
+
+</databaseChangeLog>

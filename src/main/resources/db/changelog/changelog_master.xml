@@ -7,7 +7,8 @@
            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
     <include file="changelog/create_pokemon_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/load_bulbasaur_data.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/load_charmander_data.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/create_trainer_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/load_pokemon_data.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

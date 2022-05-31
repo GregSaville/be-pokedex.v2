@@ -1,0 +1,24 @@
+package com.bushelpowered.pokedex.service.entities
+
+import com.fasterxml.jackson.annotation.JsonRawValue
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.SequenceGenerator
+import javax.persistence.Table
+
+@Table(name = "trainers")
+@Entity
+class Trainer (
+    @Id
+    var id: Long,
+    @Column(name="email", nullable = false)
+    var email: String,
+    @Column(name="password", nullable = false)
+    var password: String,
+    @Column(name = "captured_pokemon", nullable = true)
+    @JsonRawValue
+    var capturedPokemon: String = ""
+    )
