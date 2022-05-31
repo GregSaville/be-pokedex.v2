@@ -13,5 +13,5 @@ class PokemonService(val db: PokemonRepository){
     fun findAllPokemon(): MutableIterable<Pokemon> = db.findAll()
 
     fun findPokemonById(id: String): Optional<Pokemon> = db.findById(id)
-
+    fun findPokemonByIds(ids: List<String>) : MutableIterable<Pokemon> = db.findAllById(ids)
 }

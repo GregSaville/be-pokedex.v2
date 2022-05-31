@@ -21,5 +21,4 @@ class PokemonController(val service: PokemonService) {
             ResponseEntity.ok(pokemon)
         }.orElse(ResponseEntity.notFound().build())
     }
-
 }

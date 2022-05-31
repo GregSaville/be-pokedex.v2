@@ -24,5 +24,5 @@ class TrainerController(val service: TrainerService){
     fun capturePokemon(@PathVariable id: Long, @RequestBody pokeId: String) = service.addPokemon(pokeId, getById(id))
 
     @GetMapping("/trainers/{id}/captured")
-    fun getTrainersPokemon(@PathVariable id: Long) : Any = service.findTrainersPokemon(getById(id))
+    fun getTrainersPokemon(@PathVariable id: Long) : MutableIterable<Pokemon> = service.findTrainersPokemon(getById(id))
 }

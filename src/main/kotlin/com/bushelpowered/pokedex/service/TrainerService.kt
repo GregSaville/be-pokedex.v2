@@ -27,15 +27,10 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
         } else throw NotFoundException()
     }
 
-    fun findTrainersPokemon(trainer: Optional<Trainer>) : Any {
+    fun findTrainersPokemon(trainer: Optional<Trainer>) : MutableIterable<Pokemon> {
         return if(trainer.isPresent){
             val listOfPokeID = trainer.get().capturedPokemon.split(" ")
-            val listOfCapturedPokemon: MutableList<Pokemon> = mutableListOf()
-            listOfPokeID.forEach { pokemon -> if(findPokemonById(pokemon).isPresent){
-                    listOfCapturedPokemon.add(findPokemonById(pokemon).get())
-                } else throw  NotFoundException()
-                return listOfCapturedPokemon
-            }
+            return findPokemonByIds(listOfPokeID)
         } else throw NotFoundException()
     }
 }
