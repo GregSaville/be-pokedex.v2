@@ -1,4 +1,4 @@
-package com.bushelpowered.pokedex.service.entities
+package com.bushelpowered.pokedex.entities
 
 import com.fasterxml.jackson.annotation.JsonRawValue
 import javax.persistence.*

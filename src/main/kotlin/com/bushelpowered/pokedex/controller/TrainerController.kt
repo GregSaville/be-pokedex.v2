@@ -1,13 +1,14 @@
 package com.bushelpowered.pokedex.controller
 
 import com.bushelpowered.pokedex.service.TrainerService
-import com.bushelpowered.pokedex.service.entities.Pokemon
-import com.bushelpowered.pokedex.service.entities.Trainer
+import com.bushelpowered.pokedex.entities.Pokemon
+import com.bushelpowered.pokedex.entities.Trainer
 import org.springframework.web.bind.annotation.*
 
 import java.util.*
 
 @RestController
+@RequestMapping("/api")
 class TrainerController(val service: TrainerService){
 
     @GetMapping("/trainers")

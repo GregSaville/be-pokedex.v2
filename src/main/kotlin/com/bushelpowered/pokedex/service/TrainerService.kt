@@ -1,7 +1,7 @@
 package com.bushelpowered.pokedex.service
 
-import com.bushelpowered.pokedex.service.entities.Pokemon
-import com.bushelpowered.pokedex.service.entities.Trainer
+import com.bushelpowered.pokedex.entities.Pokemon
+import com.bushelpowered.pokedex.entities.Trainer
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
 import java.util.Optional
@@ -18,12 +18,14 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
 
     fun addPokemon(pokeId: String, trainer: Optional<Trainer>): Trainer {
         return if (trainer.isPresent) {
-            trainerDB.save(Trainer(
+            trainerDB.save(
+                Trainer(
                 email = trainer.get().email,
                 password = trainer.get().password,
                 capturedPokemon = trainer.get().capturedPokemon + " " + pokeId,
                 id = trainer.get().id
-            ))
+            )
+            )
         } else throw NotFoundException()
     }
 
