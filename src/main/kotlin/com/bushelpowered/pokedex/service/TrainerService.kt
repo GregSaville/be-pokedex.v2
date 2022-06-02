@@ -2,7 +2,10 @@ package com.bushelpowered.pokedex.service
 
 import com.bushelpowered.pokedex.entities.Pokemon
 import com.bushelpowered.pokedex.entities.Trainer
+import com.bushelpowered.pokedex.repositories.PokemonRepository
+import com.bushelpowered.pokedex.repositories.TrainerRepository
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.Optional
 
@@ -15,6 +18,7 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
     fun getTrainerById(trainerId: Long): Optional<Trainer> = trainerDB.findById(trainerId)
 
     fun addTrainer(trainer: Trainer) = trainerDB.save(trainer)
+
 
     fun addPokemon(pokeId: String, trainer: Optional<Trainer>): Trainer {
         return if (trainer.isPresent) {
@@ -34,6 +38,22 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
             val listOfPokeID = trainer.get().capturedPokemon.split(" ")
             return findPokemonByIds(listOfPokeID)
         } else throw NotFoundException()
+    }
+
+    fun clearTrainersPokemon(trainer: Optional<Trainer>): Trainer {
+        return if (!trainer.isPresent) {
+            throw NotFoundException()
+        } else {
+            trainerDB.save(
+                Trainer(
+                    email = trainer.get().email,
+                    password = trainer.get().password,
+                    capturedPokemon = "",
+                    id = trainer.get().id
+                )
+            )
+        }
+
     }
 }
 

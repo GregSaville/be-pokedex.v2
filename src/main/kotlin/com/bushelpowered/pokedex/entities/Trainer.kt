@@ -2,6 +2,7 @@ package com.bushelpowered.pokedex.entities
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonRawValue
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

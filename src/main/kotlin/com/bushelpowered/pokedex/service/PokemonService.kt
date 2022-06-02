@@ -1,6 +1,7 @@
 package com.bushelpowered.pokedex.service
 
 import com.bushelpowered.pokedex.entities.Pokemon
+import com.bushelpowered.pokedex.repositories.PokemonRepository
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Service
 import java.util.Optional

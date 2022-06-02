@@ -18,13 +18,17 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	//implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("io.freefair.gradle:lombok-plugin:6.4.3")
 	implementation("org.liquibase:liquibase-core")
+	implementation("org.projectlombok:lombok:1.18.24")
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

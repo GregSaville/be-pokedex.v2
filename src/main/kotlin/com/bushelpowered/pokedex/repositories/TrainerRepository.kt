@@ -1,4 +1,4 @@
-package com.bushelpowered.pokedex.service
+package com.bushelpowered.pokedex.repositories
 
 import com.bushelpowered.pokedex.entities.Trainer
 import org.springframework.data.jpa.repository.JpaRepository
