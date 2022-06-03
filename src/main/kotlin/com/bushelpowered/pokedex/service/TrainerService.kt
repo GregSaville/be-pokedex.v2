@@ -16,14 +16,21 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
 
     fun getTrainerById(trainerId: Long): Optional<Trainer> = trainerDB.findById(trainerId)
 
-    fun addTrainer(trainer: Trainer) = trainerDB.save(trainer)
-
-    fun removeTrainer(trainer: Optional<Trainer>) {
-        if(trainer.isPresent){
-            trainerDB.delete(trainer.get())
+    fun addTrainer(trainer: Trainer) : Trainer{
+        return if (trainerDB.findTrainerByEmail(trainer.email).isPresent){
+            println("${trainer.email} is already registered")
+            trainerDB.findTrainerByEmail(trainer.email).get()
+        }else{
+            trainerDB.save(trainer)
         }
-        else {
-            throw NotFoundException()
+    }
+
+    fun removeTrainer(trainer: Optional<Trainer>) :String {
+        return if(trainer.isPresent){
+            trainerDB.delete(trainer.get())
+            "${trainer.get().email} was removed"
+        } else {
+            "${trainer.get().email} was not found"
         }
     }
 
@@ -110,5 +117,6 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
         }
         return returnString.trim()
     }
+
 }
 
