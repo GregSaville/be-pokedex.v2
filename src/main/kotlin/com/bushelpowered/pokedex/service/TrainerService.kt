@@ -18,6 +18,14 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
 
     fun addTrainer(trainer: Trainer) = trainerDB.save(trainer)
 
+    fun removeTrainer(trainer: Optional<Trainer>) {
+        if(trainer.isPresent){
+            trainerDB.delete(trainer.get())
+        }
+        else {
+            throw NotFoundException()
+        }
+    }
 
     fun addPokemon(pokeId: String, trainer: Optional<Trainer>): Trainer {
         return if (trainer.isPresent) {
@@ -92,9 +100,11 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
     private fun removeDuplicatesAndSort(updatedCapturedPokemon: List<String>): String {
         var returnString = ""
         var sortedCapturedPokemon = mutableListOf<Int>()
+
         updatedCapturedPokemon.toSet().toList().forEach{
             sortedCapturedPokemon.add(it.toInt())
         }
+
         sortedCapturedPokemon.sorted().forEach{
             returnString = "$returnString${it.toString()} "
         }

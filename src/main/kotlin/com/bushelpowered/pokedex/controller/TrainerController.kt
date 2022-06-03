@@ -27,6 +27,9 @@ class TrainerController(val service: TrainerService){
     @GetMapping("/trainers/{id}/captured")
     fun getTrainersPokemon(@PathVariable id: Long) : MutableIterable<Pokemon> = service.findTrainersPokemon(getById(id))
 
+    @DeleteMapping("/trainers/{id}")
+    fun removeTrainer(@PathVariable id: Long) = service.removeTrainer(getById(id))
+
     @DeleteMapping("/trainers/{id}/captured")
     fun clearTrainersPokemon(@PathVariable id: Long) = service.clearTrainersPokemon(getById(id))
 }
