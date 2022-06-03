@@ -25,8 +25,8 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
 
         http.authorizeRequests()
             .antMatchers(HttpMethod.GET, "/api/pokemon").permitAll()
-            .antMatchers(HttpMethod.GET,"/api/trainers/{id}/captured").permitAll()
-            .antMatchers(HttpMethod.PUT, "/api/trainers/{id}").permitAll()
+            .antMatchers(HttpMethod.GET, "/api").permitAll()
+            .antMatchers(HttpMethod.GET, "/welcome").permitAll()
             .antMatchers(HttpMethod.GET, "/api/trainers").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.POST, "/api/trainers").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.DELETE, "/api/trainers/**").hasAnyRole("ADMIN")

@@ -71,7 +71,7 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
     }
 
     private fun verifyNumber(toTest: String): String {
-        var testList = toTest.split(" ")
+        var testList = toTest.split(" ","\n")
         testList = testList.toSet().toList()
         var returnString = ""
         testList.forEach{
