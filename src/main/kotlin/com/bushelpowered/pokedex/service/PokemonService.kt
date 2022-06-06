@@ -21,7 +21,7 @@ class PokemonService(val db: PokemonRepository){
 
     fun findPokemonByTypes(type: String) : MutableList<Optional<Pokemon>> {
         var pokeList = db.findByType(stringToJsonFormatter(type.split(",", " ")))
-        if (type.split(",", " ").size > 1) {
+        if (pokeList.isEmpty() && type.split(",", " ").size > 1) {
             pokeList = db.findByType(stringToJsonFormatter(reverseTypes(type)))
         } else {
             listOfTypes.forEach { nextType ->
