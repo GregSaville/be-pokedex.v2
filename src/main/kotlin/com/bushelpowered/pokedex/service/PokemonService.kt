@@ -20,7 +20,7 @@ class PokemonService(val db: PokemonRepository){
     fun findPokemonByIds(ids: List<String>) : MutableIterable<Pokemon> = db.findAllById(ids)
 
     fun findPokemonByTypes(type: String) : MutableList<Optional<Pokemon>> {
-        var pokeList = db.findByType(stringToJsonFormatter(type.split(",", " ")))
+        var pokeList = db.findByType(stringToJsonFormatter(type.split(",", " ").toSet().toList()))
         if (pokeList.isEmpty() && type.split(",", " ").size > 1) {
             pokeList = db.findByType(stringToJsonFormatter(reverseTypes(type)))
         } else {
@@ -41,8 +41,10 @@ class PokemonService(val db: PokemonRepository){
     private fun reverseTypes(type: String): List<String> {
         var tmpList = type.split(","," ")
         var reversedTypes = mutableListOf<String>()
-        tmpList.reversed().forEach{
-            reversedTypes.add(it)
+        tmpList.reversed().forEach {
+            if (listOfTypes.contains(it)) {
+                reversedTypes.add(it)
+            }
         }
         return reversedTypes
     }
@@ -51,10 +53,12 @@ class PokemonService(val db: PokemonRepository){
         var returnString = "["
         if (typeList.size > 1) {
             typeList.forEach {
-                returnString = "$returnString\"$it\", "
+                if(listOfTypes.contains(it)) {
+                    returnString = "$returnString\"$it\", "
+                }
             }
-            returnString = returnString.dropLast(2)
-        } else {
+                returnString = returnString.dropLast(2)
+        } else if (typeList.isNotEmpty()){
             returnString = "$returnString\"${typeList[0]}\""
         }
         returnString = "$returnString]"
