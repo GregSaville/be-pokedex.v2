@@ -20,9 +20,9 @@ class PokemonService(val db: PokemonRepository){
     fun findPokemonByIds(ids: List<String>) : MutableIterable<Pokemon> = db.findAllById(ids)
 
     fun findPokemonByTypes(type: String) : MutableList<Optional<Pokemon>> {
-        var pokeList = db.findByType(stringToJsonFormatter(type.split(",", " ").toSet().toList()))
+        var pokeList = db.findByType(stringsToJsonFormatter(type.split(",", " ").toSet().toList()))
         if (pokeList.isEmpty() && type.split(",", " ").size > 1) {
-            pokeList = db.findByType(stringToJsonFormatter(reverseTypes(type)))
+            pokeList = db.findByType(stringsToJsonFormatter(type.split(","," ").reversed()))
         } else {
             listOfTypes.forEach { nextType ->
                 db.findByType("[\"$type\", \"$nextType\"]").forEach {
@@ -38,18 +38,7 @@ class PokemonService(val db: PokemonRepository){
         return pokeList
     }
 
-    private fun reverseTypes(type: String): List<String> {
-        var tmpList = type.split(","," ")
-        var reversedTypes = mutableListOf<String>()
-        tmpList.reversed().forEach {
-            if (listOfTypes.contains(it)) {
-                reversedTypes.add(it)
-            }
-        }
-        return reversedTypes
-    }
-
-    private fun stringToJsonFormatter(typeList: List<String>) : String{
+    private fun stringsToJsonFormatter(typeList: List<String>) : String{
         var returnString = "["
         if (typeList.size > 1) {
             typeList.forEach {
