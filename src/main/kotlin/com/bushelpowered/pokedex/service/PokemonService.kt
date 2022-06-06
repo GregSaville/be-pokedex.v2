@@ -11,7 +11,7 @@ import java.util.Optional
 @Primary
 class PokemonService(val db: PokemonRepository){
 
-    val listOfTypes = listOf<String>("bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water")
+    val listOfTypes = listOf("bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water")
     fun findAllPokemon(): MutableIterable<Pokemon> = db.findAll()
 
     fun findPokemonByName(name: String): Optional<Pokemon> = db.findByName(name)
@@ -21,7 +21,7 @@ class PokemonService(val db: PokemonRepository){
 
     fun findPokemonByTypes(type: String) : MutableList<Optional<Pokemon>> {
         var pokeList = db.findByType(stringToJsonFormatter(type.split(",", " ")))
-        if (pokeList.toList().isEmpty() && type.split(",", " ").size > 1) {
+        if (type.split(",", " ").size > 1) {
             pokeList = db.findByType(stringToJsonFormatter(reverseTypes(type)))
         } else {
             listOfTypes.forEach { nextType ->
