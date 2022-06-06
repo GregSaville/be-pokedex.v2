@@ -21,7 +21,6 @@ class PokemonController(val service: PokemonService) {
     @GetMapping("/{id}")
     fun getPokemonById(@PathVariable(value = "id") pokeId: String): ResponseEntity<Pokemon>{
         return service.findPokemonById(pokeId).map { pokemon ->
-            println(pokemon.type)
             ResponseEntity.ok(pokemon)
         }.orElse(ResponseEntity.notFound().build())
     }
