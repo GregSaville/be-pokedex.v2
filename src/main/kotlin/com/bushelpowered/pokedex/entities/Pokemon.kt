@@ -11,7 +11,7 @@ class Pokemon(
     val name: String,
     @Column(name = "types", columnDefinition = "json")
     @JsonRawValue
-    val types: String,
+    val type: String,
     val height: Double,
     val weight: Double,
     @Column(name = "abilities", columnDefinition = "json")

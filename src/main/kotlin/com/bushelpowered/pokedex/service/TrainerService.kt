@@ -16,6 +16,8 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
 
     fun getTrainerById(trainerId: Long): Optional<Trainer> = trainerDB.findById(trainerId)
 
+    fun getTrainerByName(trainerName: String): MutableIterable<Optional<Trainer>> = trainerDB.findByName(trainerName)
+
     fun addTrainer(trainer: Trainer) : Trainer{
         return if (trainerDB.findTrainerByEmail(trainer.email).isPresent){
             println("${trainer.email} is already registered")

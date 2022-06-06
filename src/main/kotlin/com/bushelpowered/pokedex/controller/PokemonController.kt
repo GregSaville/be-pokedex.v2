@@ -12,12 +12,16 @@ class PokemonController(val service: PokemonService) {
     @GetMapping("")
     fun index(): MutableIterable<Pokemon> = service.findAllPokemon()
 
-    @RequestMapping(value= ["/"],method = [RequestMethod.GET])
-    fun getPokemonByName(@RequestParam(value="name")name : String) = service.findPokemonByName(name)
+    @RequestMapping(value= ["/"],method = [RequestMethod.GET], params = ["name"])
+    fun getPokemonByName(@RequestParam name : String) = service.findPokemonByName(name)
+
+    @RequestMapping(value = ["/"], method = [RequestMethod.GET], params = ["type"])
+    fun getPokemonByTypes(@RequestParam type : String) = service.findPokemonByTypes(type)
 
     @GetMapping("/{id}")
     fun getPokemonById(@PathVariable(value = "id") pokeId: String): ResponseEntity<Pokemon>{
         return service.findPokemonById(pokeId).map { pokemon ->
+            println(pokemon.type)
             ResponseEntity.ok(pokemon)
         }.orElse(ResponseEntity.notFound().build())
     }
