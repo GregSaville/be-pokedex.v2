@@ -20,9 +20,9 @@ class PokemonService(val db: PokemonRepository){
     fun findPokemonByIds(ids: List<String>) : MutableIterable<Pokemon> = db.findAllById(ids)
 
     fun findPokemonByTypes(type: String) : MutableList<Optional<Pokemon>> {
-        var pokeList = db.findByType(stringsToJsonFormatter(type.split(",", " ").toSet().toList()))
+        var pokeList = db.findByType(stringsToJsonFormatter(type.split(",", "+"," ").toSet().toList()))
         if (pokeList.isEmpty() && type.split(",", " ").size > 1) {
-            pokeList = db.findByType(stringsToJsonFormatter(type.split(","," ").reversed()))
+            pokeList = db.findByType(stringsToJsonFormatter(type.split(",","+"," ").reversed()))
         } else {
             listOfTypes.forEach { nextType ->
                 db.findByType("[\"$type\", \"$nextType\"]").forEach {
