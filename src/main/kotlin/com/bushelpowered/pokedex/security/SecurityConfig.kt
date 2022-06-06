@@ -1,7 +1,9 @@
 package com.bushelpowered.pokedex.security
 
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -11,25 +13,24 @@ import org.springframework.security.web.savedrequest.NullRequestCache
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 class SecurityConfig: WebSecurityConfigurerAdapter() {
 
-    val authenticationEntryPoint = RESTAuthenticationEntryPoint()
+
 
     override fun configure(http: HttpSecurity) {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .requestCache().requestCache(NullRequestCache()).and()
-            .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-            .and()
             .csrf().disable()
             .cors()
+            .and().httpBasic()
 
         http.authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/api/pokemon").permitAll()
-            .antMatchers(HttpMethod.GET, "/api").permitAll()
-            .antMatchers(HttpMethod.GET, "/welcome").permitAll()
             .antMatchers(HttpMethod.GET, "/api/trainers").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.POST, "/api/trainers").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.DELETE, "/api/trainers/**").hasAnyRole("ADMIN")
-
+            .antMatchers(HttpMethod.GET, "/api/pokemon","/api/pokemon/**","/api","/welcome").permitAll()
+            .anyRequest().authenticated()
     }
+
 }

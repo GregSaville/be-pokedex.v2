@@ -10,6 +10,8 @@ import javax.persistence.Table
 class Trainer (
     @Id
     var id: Long,
+    @Column(name = "name", nullable = false)
+    var name: String,
     @Column(name="email", nullable = false)
     var email: String,
     @Column(name="password", nullable = false)

@@ -38,11 +38,12 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
         return if (trainer.isPresent) {
             trainerDB.save(
                 Trainer(
-                email = trainer.get().email,
-                password = trainer.get().password,
-                capturedPokemon = handleCapture(trainer.get().capturedPokemon, pokeId),
-                id = trainer.get().id
-            )
+                    name = trainer.get().name,
+                    email = trainer.get().email,
+                    password = trainer.get().password,
+                    capturedPokemon = handleCapture(trainer.get().capturedPokemon, pokeId),
+                    id = trainer.get().id
+                )
             )
         } else throw NotFoundException()
     }
@@ -60,6 +61,7 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
         } else {
             trainerDB.save(
                 Trainer(
+                    name = trainer.get().name,
                     email = trainer.get().email,
                     password = trainer.get().password,
                     capturedPokemon = "",

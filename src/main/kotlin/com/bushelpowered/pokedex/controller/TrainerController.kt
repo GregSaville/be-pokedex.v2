@@ -17,7 +17,6 @@ class TrainerController(val service: TrainerService){
     @GetMapping("/trainers/{id}")
     fun getById(@PathVariable id: Long) : Optional<Trainer> = service.getTrainerById(id)
 
-
     @PostMapping("/trainers")
     fun addTrainer(@RequestBody trainer: Trainer) : Trainer = service.addTrainer(trainer)
 

@@ -6,4 +6,5 @@ import java.util.Optional
 
 interface TrainerRepository : JpaRepository<Trainer, Long>{
     fun findTrainerByEmail(email: String) : Optional<Trainer>
+    fun findByName(name: String): Optional<Trainer>
 }
