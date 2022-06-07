@@ -18,10 +18,10 @@ class PokemonController(val service: PokemonService) {
     @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["page"])
     fun getPokemonByPage(@RequestParam page : Int) = service.findPokemonByPage(page)
 
-    @RequestMapping(value= ["/"],method = [RequestMethod.GET], params = ["name"])
+    @RequestMapping(value= [""],method = [RequestMethod.GET], params = ["name"])
     fun getPokemonByName(@RequestParam name : String) = service.findPokemonByName(name)
 
-    @RequestMapping(value = ["/"], method = [RequestMethod.GET], params = ["type"])
+    @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["type"])
     fun getPokemonByTypes(@RequestParam type : String) = service.findPokemonByTypes(type)
 
     @GetMapping("/{id}")
