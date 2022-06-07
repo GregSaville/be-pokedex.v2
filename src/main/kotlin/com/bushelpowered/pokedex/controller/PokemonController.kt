@@ -9,8 +9,14 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/pokemon")
 class PokemonController(val service: PokemonService) {
 
-    @GetMapping("")
+    @GetMapping("/all")
     fun index(): MutableIterable<Pokemon> = service.findAllPokemon()
+
+    @GetMapping("")
+    fun defaultPage() : MutableIterable<Pokemon> = getPokemonByPage(1)
+
+    @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["page"])
+    fun getPokemonByPage(@RequestParam page : Int) = service.findPokemonByPage(page)
 
     @RequestMapping(value= ["/"],method = [RequestMethod.GET], params = ["name"])
     fun getPokemonByName(@RequestParam name : String) = service.findPokemonByName(name)

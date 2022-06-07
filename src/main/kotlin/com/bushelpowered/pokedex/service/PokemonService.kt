@@ -19,6 +19,16 @@ class PokemonService(val db: PokemonRepository){
     fun findPokemonById(id: String): Optional<Pokemon> = db.findById(id)
     fun findPokemonByIds(ids: List<String>) : MutableIterable<Pokemon> = db.findAllById(ids)
 
+    fun findPokemonByPage(page: Int): MutableIterable<Pokemon> {
+        val pokemonRangeMax = page * 15
+        val pokemonRangeMin = ((page-1) * 15 )+ 1
+        var pokeIdList = mutableListOf<String>()
+        for (id in pokemonRangeMin..pokemonRangeMax){
+            pokeIdList.add(id.toString())
+        }
+        return db.findAllById(pokeIdList)
+    }
+
     fun findPokemonByTypes(type: String) : MutableList<Optional<Pokemon>> {
         var pokeList = db.findByType(stringsToJsonFormatter(type.split(",", "+"," ").toSet().toList()))
         if (pokeList.isEmpty() && type.split(",", " ").size > 1) {
