@@ -12,7 +12,7 @@ import java.util.*
 class TrainerController(val service: TrainerService){
 
     @GetMapping("")
-    fun index() = service.getAllTrainers()
+    fun getAll() = service.getAllTrainers()
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long) : Optional<Trainer> = service.getTrainerById(id)
@@ -23,15 +23,8 @@ class TrainerController(val service: TrainerService){
     @PostMapping("")
     fun addTrainer(@RequestBody trainer: Trainer) : Trainer = service.addTrainer(trainer)
 
-    @PutMapping("/{id}")
-    fun capturePokemon(@PathVariable id: Long, @RequestBody pokeId: String) = service.addPokemon(pokeId, getById(id))
-
-    @GetMapping("/{id}/captured")
-    fun getTrainersPokemon(@PathVariable id: Long) : MutableIterable<Pokemon> = service.findTrainersPokemon(getById(id))
-
     @DeleteMapping("/{id}")
     fun removeTrainer(@PathVariable id: Long) = service.removeTrainer(getById(id))
 
-    @DeleteMapping("/{id}/captured")
-    fun clearTrainersPokemon(@PathVariable id: Long) = service.clearTrainersPokemon(getById(id))
+
 }

@@ -7,7 +7,7 @@ import javax.persistence.Table
 
 @Table(name = "trainers")
 @Entity
-class Trainer (
+data class Trainer (
     @Id
     var id: Long,
     @Column(name = "name", nullable = false)
@@ -16,6 +16,6 @@ class Trainer (
     var email: String,
     @Column(name="password", nullable = false)
     var password: String,
-    @Column(name = "captured_pokemon", nullable = true)
+    @Column(name = "captured_pokemon", nullable = false)
     var capturedPokemon: String = ""
-    )
+)

@@ -1,29 +1,42 @@
 package com.bushelpowered.pokedex.entities
 
-import com.fasterxml.jackson.annotation.JsonRawValue
+
+import com.fasterxml.jackson.annotation.JsonValue
 import javax.persistence.*
 
 @Table(name = "pokemon")
 @Entity
-class Pokemon(
+data class Pokemon(
     @Id
     val id: String,
+
     val name: String,
-    @Column(name = "types", columnDefinition = "json")
-    @JsonRawValue
-    val type: String,
+
+
+    @OneToMany
+    @JoinColumn(name="poke_id", referencedColumnName = "id")
+    val type: List<Types>,
+
     val height: Double,
+
     val weight: Double,
-    @Column(name = "abilities", columnDefinition = "json")
-    @JsonRawValue
-    val abilities: String,
-    @Column(name="egg_groups", columnDefinition = "json")
-    @JsonRawValue
-    val egg_groups: String,
-    @Column(name="stats", columnDefinition = "json")
-    @JsonRawValue
-    val stats: String,
+
+    @Transient
+    @OneToOne
+    @JoinColumn(name="id")
+    val abilities: Abilities,
+
+    @Transient
+    @OneToOne
+    @JoinColumn(name="id")
+    val eggGroups: EggGroup,
+
+    @OneToOne
+    @JoinColumn(name="id")
+    val stats: Stats,
+
     val genus: String,
+
     val description: String
 )
 {}

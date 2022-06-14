@@ -10,26 +10,26 @@ import java.util.Optional
 
 @Service
 
-class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : PokemonService(db) {
+class TrainerService(private val TrainerRepository: TrainerRepository, PokemonRepository: PokemonRepository) : PokemonService(PokemonRepository) {
 
-    fun getAllTrainers(): MutableIterable<Trainer> = trainerDB.findAll()
+    fun getAllTrainers(): MutableIterable<Trainer> = TrainerRepository.findAll()
 
-    fun getTrainerById(trainerId: Long): Optional<Trainer> = trainerDB.findById(trainerId)
+    fun getTrainerById(trainerId: Long): Optional<Trainer> = TrainerRepository.findById(trainerId)
 
-    fun getTrainerByName(trainerName: String): MutableIterable<Optional<Trainer>> = trainerDB.findByName(trainerName)
+    fun getTrainerByName(trainerName: String): MutableIterable<Optional<Trainer>> = TrainerRepository.findByName(trainerName)
 
     fun addTrainer(trainer: Trainer) : Trainer{
-        return if (trainerDB.findTrainerByEmail(trainer.email).isPresent){
+        return if (TrainerRepository.findTrainerByEmail(trainer.email).isPresent){
             println("${trainer.email} is already registered")
-            trainerDB.findTrainerByEmail(trainer.email).get()
+            TrainerRepository.findTrainerByEmail(trainer.email).get()
         }else{
-            trainerDB.save(trainer)
+            TrainerRepository.save(trainer)
         }
     }
 
     fun removeTrainer(trainer: Optional<Trainer>) :String {
         return if(trainer.isPresent){
-            trainerDB.delete(trainer.get())
+            TrainerRepository.delete(trainer.get())
             "${trainer.get().email} was removed"
         } else {
             "${trainer.get().email} was not found"
@@ -38,7 +38,7 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
 
     fun addPokemon(pokeId: String, trainer: Optional<Trainer>): Trainer {
         return if (trainer.isPresent) {
-            trainerDB.save(
+            TrainerRepository.save(
                 Trainer(
                     name = trainer.get().name,
                     email = trainer.get().email,
@@ -50,7 +50,7 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
         } else throw NotFoundException()
     }
 
-    fun findTrainersPokemon(trainer: Optional<Trainer>) : MutableIterable<Pokemon> {
+    fun findTrainersPokemon(trainer: Optional<Trainer>) : List<Pokemon> {
         return if(trainer.isPresent){
             val listOfPokeID = trainer.get().capturedPokemon.split(" ")
             return findPokemonByIds(listOfPokeID)
@@ -61,7 +61,7 @@ class TrainerService(val trainerDB: TrainerRepository, db: PokemonRepository) : 
         return if (!trainer.isPresent) {
             throw NotFoundException()
         } else {
-            trainerDB.save(
+            TrainerRepository.save(
                 Trainer(
                     name = trainer.get().name,
                     email = trainer.get().email,

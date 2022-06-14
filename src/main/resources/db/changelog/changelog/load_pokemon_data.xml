@@ -7,19 +7,53 @@
            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
  <changeSet id="02" author="gsaville">
-     <loadData tableName="pokemon" relativeToChangelogFile="true" file="data/pokedex.csv"
-               separator="," quotchar="&quot;">
-         <column header="id" type="bigint"/>
-         <column header="name" type="varchar(50)"/>
-         <column header="types" type="json"/>
-         <column header="height" type="double"/>
-         <column header="weight" type="double"/>
-         <column header="abilities" type="json"/>
-         <column header="egg_groups" type="json"/>
-         <column header="stats" type="json"/>
-         <column header="genus" type="varchar(100)"/>
-         <column header="description" type="varchar(500)"/>
-     </loadData>
+     <insert tableName="pokemon">
+         <column name="id" value="1"/>
+         <column name="name" value="Bulbasaur"/>
+         <column name="height" value="4.0"/>
+         <column name="weight" value="12.0"/>
+         <column name="genus" value="Seed Pokemon"/>
+         <column name="description" value="Pokemone that does some grass stuff"/>
+     </insert>
+
+     <insert tableName="abilities">
+         <column name="ability" value="grassSomething"/>
+     </insert>
+     <insert tableName="abilities">
+         <column name="ability" value="overgrowth"/>
+     </insert>
+
+     <insert tableName="egg_group">
+         <column name="group" value="monster1"/>
+     </insert>
+     <insert tableName="egg_group">
+         <column name="group" value="humanoid"/>
+     </insert>
+
+     <insert tableName="types">
+         <column name="type" value="poison"/>
+     </insert>
+     <insert tableName="types">
+         <column name="type" value="grass"/>
+     </insert>
+     <insert tableName="pokemon_type">
+         <column name="poke_id" value="1"/>
+         <column name="type_id" value="1"/>
+     </insert>
+     <insert tableName="pokemon_type">
+         <column name="poke_id" value="1"/>
+         <column name="type_id" value="2"/>
+     </insert>
+
+     <insert tableName="stats">
+         <column name="poke_id" value="1"/>
+         <column name="hp" value="5"/>
+         <column name="speed" value="6"/>
+         <column name="attack" value="7"/>
+         <column name="defense" value="12"/>
+         <column name="specialAttack" value="99"/>
+         <column name="specialDefense" value="12"/>
+     </insert>
 
  </changeSet>
 
