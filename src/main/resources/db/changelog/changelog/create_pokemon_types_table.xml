@@ -10,7 +10,7 @@
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
     <changeSet id="10" author="gsaville">
         <createTable tableName="pokemon_type">
-            <column name="id"  type="bigint">
+            <column name="pokemon_type_id"  type="bigint">
                 <constraints primaryKey="true" primaryKeyName="pokemon_types_pkey"/>
             </column>
             <column name="poke_id" type="bigint"/>

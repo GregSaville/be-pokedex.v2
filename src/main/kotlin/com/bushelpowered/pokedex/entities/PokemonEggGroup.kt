@@ -6,6 +6,7 @@ import javax.persistence.*
 @Entity
 data class PokemonEggGroup(
     @Id
+    @Column(name = "pokemon_group_id")
     val id: String,
 
 

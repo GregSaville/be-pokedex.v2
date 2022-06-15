@@ -12,7 +12,10 @@ class CSVController(private val helper: CSVHelper, private val CSVService: CSVSe
 
     @PutMapping("/loadCSV")
     fun loadCSV(): ResponseEntity<String> {
-        CSVService.loadCSV()
-        return ResponseEntity.ok("Loaded CSV")
+        return try{ CSVService.loadCSV()
+            ResponseEntity.ok("Loaded CSV")
+        } catch (ex : Exception) {
+            ResponseEntity.internalServerError().build()
         }
+    }
 }

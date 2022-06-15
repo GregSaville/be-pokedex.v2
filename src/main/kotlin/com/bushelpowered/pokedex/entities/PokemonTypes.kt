@@ -6,8 +6,8 @@ import javax.persistence.*
 @Entity
 data class PokemonTypes(
     @Id
+    @Column(name = "pokemon_type_id")
     val id: String,
-
 
     @Column(name="poke_id")
     val pokeId: String,
