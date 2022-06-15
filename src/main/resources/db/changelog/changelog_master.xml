@@ -13,7 +13,9 @@
     <include file="changelog/create_eggGroup_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/create_abilities_table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/create_pokemon_types_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/load_pokemon_data.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/create_pokemon_abilities_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/create_pokemon_eggGroup_table.xml" relativeToChangelogFile="true"/>
+<!--    <include file="changelog/load_pokemon_data.xml" relativeToChangelogFile="true"/>-->
     <include file="changelog/load_sample_trainer_data.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

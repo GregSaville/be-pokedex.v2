@@ -2,16 +2,15 @@ package com.bushelpowered.pokedex.entities
 
 import javax.persistence.*
 
-@Table(name="pokemon_type")
+@Table(name="pokemon_ability")
 @Entity
-data class PokemonTypes(
+data class PokemonAbilities(
     @Id
     val id: String,
-
 
     @Column(name="poke_id")
     val pokeId: String,
 
-    @Column(name="type_id")
-    val typeId: String
+
+    val abilityId: String
 )

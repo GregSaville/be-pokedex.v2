@@ -16,19 +16,19 @@ class PokemonController(private val service: PokemonService) {
         } else(ResponseEntity.notFound().build())
     }
 
-    @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["page"])
-    fun getPokemonByPage(@RequestParam page : Int) :ResponseEntity<List<Pokemon>>{
+    @RequestMapping(value = [""], method = [RequestMethod.GET])
+    fun getPokemonByPage(@RequestParam(name = "page", required = false, defaultValue = "1") page : Int) :ResponseEntity<List<Pokemon>>{
     return if(service.findPokemonByPage(page) != null) {
         ResponseEntity.ok(service.findPokemonByPage(page))
     } else(ResponseEntity.notFound().build())
 }
 
-    @RequestMapping(value= [""],method = [RequestMethod.GET], params = ["name"])
-    fun getPokemonByName(@RequestParam name : String) :ResponseEntity<Pokemon> {
-        return  if(service.findPokemonByName(name) != null) {
-            ResponseEntity.ok(service.findPokemonByName(name))
-        } else(ResponseEntity.notFound().build())
-    }
+//    @RequestMapping(value= [""],method = [RequestMethod.GET], params = ["name"])
+//    fun getPokemonByName(@RequestParam(name = "name", required = false) name : String) :ResponseEntity<Pokemon> {
+//        return  if(service.findPokemonByName(name) != null) {
+//            ResponseEntity.ok(service.findPokemonByName(name))
+//        } else(ResponseEntity.notFound().build())
+//    }
 
 //    @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["type"])
 //    fun getPokemonByTypes(@RequestParam type : String) : ResponseEntity<List<Pokemon>> {

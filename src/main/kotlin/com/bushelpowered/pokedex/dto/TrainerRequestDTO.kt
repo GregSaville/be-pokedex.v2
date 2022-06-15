@@ -1,4 +1,7 @@
 package com.bushelpowered.pokedex.dto
 
-class TrainerRequestDTO {
-}
+data class TrainerRequestDTO(
+    val name: String,
+    val email: String,
+    val password: String
+)

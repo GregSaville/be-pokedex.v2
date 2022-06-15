@@ -1,20 +1,16 @@
 package com.bushelpowered.pokedex.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonValue
 import javax.persistence.*
 
 @Table(name="egg_group")
 @Entity
-@JsonInclude(JsonInclude.Include.NON_NULL)
 data class EggGroup(
-    @JsonIgnore
-    @JoinColumn(name = "poke_id")
     @Id
-    val pokeId : String,
+    val groupId : String,
 
-    val group1: String,
-
-    val group2: String
+    @JsonValue
+    @Column(name = "group_name")
+    val group: String,
 
 )

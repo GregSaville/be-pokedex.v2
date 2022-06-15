@@ -2,9 +2,9 @@ package com.bushelpowered.pokedex.entities
 
 import javax.persistence.*
 
-@Table(name="pokemon_type")
+@Table(name="pokemon_group")
 @Entity
-data class PokemonTypes(
+data class PokemonEggGroup(
     @Id
     val id: String,
 
@@ -12,6 +12,6 @@ data class PokemonTypes(
     @Column(name="poke_id")
     val pokeId: String,
 
-    @Column(name="type_id")
-    val typeId: String
+    @Column(name="group_id")
+    val groupId: String
 )

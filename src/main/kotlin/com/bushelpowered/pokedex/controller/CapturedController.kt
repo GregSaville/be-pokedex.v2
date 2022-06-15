@@ -2,6 +2,8 @@ package com.bushelpowered.pokedex.controller
 
 import com.bushelpowered.pokedex.service.TrainerService
 import com.bushelpowered.pokedex.entities.Pokemon
+import com.bushelpowered.pokedex.entities.Trainer
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
@@ -9,15 +11,28 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/trainers")
 class CapturedController(private val TrainerService : TrainerService) {
 
-    @PutMapping("/{id}")
-    fun capturePokemon(@PathVariable id: Long, @RequestBody pokeId: String) = TrainerService.addPokemon(pokeId, TrainerService.getTrainerById(id))
+    @PutMapping("/{id}/captured")
+    fun capturePokemon(@PathVariable id: Long, @RequestBody pokeId: String) : ResponseEntity<Trainer> {
+        val currentTrainer = TrainerService.getTrainerById(id)
+        return if(currentTrainer != null){
+            ResponseEntity.ok(TrainerService.addPokemon(pokeId, currentTrainer))
+        }else(ResponseEntity.notFound().build())
+    }
 
     @GetMapping("/{id}/captured")
-    fun getCapturedPokemon(@PathVariable id: Long) : List<Pokemon> {
-        return TrainerService.findTrainersPokemon(TrainerService.getTrainerById(id))
+    fun getCapturedPokemon(@PathVariable id: Long) : ResponseEntity<List<Pokemon>> {
+        val currentTrainer = TrainerService.getTrainerById(id)
+        return if(currentTrainer != null){
+            ResponseEntity.ok(TrainerService.findTrainersPokemon(currentTrainer))
+        }else(ResponseEntity.notFound().build())
     }
 
     @DeleteMapping("/{id}/captured")
-    fun clearCapturedPokemon(@PathVariable id: Long) = TrainerService.clearTrainersPokemon(TrainerService.getTrainerById(id))
+    fun clearCapturedPokemon(@PathVariable id: Long) : ResponseEntity<Trainer> {
+        val currentTrainer = TrainerService.getTrainerById(id)
+        return if(currentTrainer != null){
+            ResponseEntity.accepted().build()
+        }else(ResponseEntity.notFound().build())
+    }
 
 }

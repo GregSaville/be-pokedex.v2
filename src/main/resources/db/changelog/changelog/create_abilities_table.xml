@@ -10,7 +10,7 @@
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
     <changeSet id="08" author="gsaville">
         <createTable tableName="abilities">
-            <column name="ability_id"  type="bigint" autoIncrement="true">
+            <column name="ability_id"  type="bigint">
                 <constraints primaryKey="true" primaryKeyName="ability_pkey"/>
             </column>
             <column name="ability" type="varchar(60)"/>

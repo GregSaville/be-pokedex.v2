@@ -1,10 +1,7 @@
 package com.bushelpowered.pokedex.entities
-
-
-import com.fasterxml.jackson.annotation.JsonValue
 import javax.persistence.*
 
-@Table(name = "pokemon")
+
 @Entity
 data class Pokemon(
     @Id
@@ -12,24 +9,21 @@ data class Pokemon(
 
     val name: String,
 
-
     @OneToMany
-    @JoinColumn(name="poke_id", referencedColumnName = "id")
-    val type: List<Types>,
+    @JoinTable(name="pokemon_type", joinColumns = [JoinColumn(name = "id")], inverseJoinColumns = [JoinColumn(name="poke_id")])
+    val type: List<Type>,
 
     val height: Double,
 
     val weight: Double,
 
-    @Transient
-    @OneToOne
-    @JoinColumn(name="id")
-    val abilities: Abilities,
+    @OneToMany
+    @JoinTable(name="pokemon_ability", joinColumns = [JoinColumn(name = "id")], inverseJoinColumns = [JoinColumn(name="poke_id")])
+    val abilities: List<Ability>,
 
-    @Transient
-    @OneToOne
-    @JoinColumn(name="id")
-    val eggGroups: EggGroup,
+    @OneToMany
+    @JoinTable(name="pokemon_group", joinColumns = [JoinColumn(name = "id")], inverseJoinColumns = [JoinColumn(name="group_id")])
+    val eggGroups: List<EggGroup>,
 
     @OneToOne
     @JoinColumn(name="id")
@@ -39,4 +33,3 @@ data class Pokemon(
 
     val description: String
 )
-{}

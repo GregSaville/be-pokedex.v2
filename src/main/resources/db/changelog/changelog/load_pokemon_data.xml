@@ -45,6 +45,25 @@
          <column name="type_id" value="2"/>
      </insert>
 
+     <insert tableName="pokemon_ability">
+         <column name="poke_id" value="1"/>
+         <column name="ability_id" value="1"/>
+     </insert>
+
+     <insert tableName="pokemon_ability">
+         <column name="poke_id" value="1"/>
+         <column name="ability_id" value="2"/>
+     </insert>
+
+     <insert tableName="pokemon_group">
+         <column name="poke_id" value="1"/>
+         <column name="group_id" value="1"/>
+     </insert>
+     <insert tableName="pokemon_group">
+         <column name="poke_id" value="1"/>
+         <column name="group_id" value="2"/>
+     </insert>
+
      <insert tableName="stats">
          <column name="poke_id" value="1"/>
          <column name="hp" value="5"/>

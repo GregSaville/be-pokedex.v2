@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -8,18 +7,18 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
-    <changeSet id="10" author="gsaville">
-        <createTable tableName="pokemon_type">
+    <changeSet id="11" author="gsaville">
+        <createTable tableName="pokemon_ability">
             <column name="id"  type="bigint">
-                <constraints primaryKey="true" primaryKeyName="pokemon_types_pkey"/>
+                <constraints primaryKey="true" primaryKeyName="pokemon_abilities_pkey"/>
             </column>
             <column name="poke_id" type="bigint"/>
-            <column name="type_id" type="bigint"/>
+            <column name="ability_id" type="bigint"/>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="pokemon_type" baseColumnNames="poke_id" constraintName="fk_pokemon2pokemonTypes" referencedTableName="pokemon"
+        <addForeignKeyConstraint baseTableName="pokemon_ability" baseColumnNames="poke_id" constraintName="fk_pokemon2pokemonAbility" referencedTableName="pokemon"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="pokemon_type" baseColumnNames="type_id" constraintName="fk_type2pokemonTypes" referencedTableName="types"
-                                 referencedColumnNames="type_id"/>
+        <addForeignKeyConstraint baseTableName="pokemon_ability" baseColumnNames="ability_id" constraintName="fk_ability2pokemonAbility" referencedTableName="abilities"
+                                 referencedColumnNames="ability_id"/>
     </changeSet>
 </databaseChangeLog>
