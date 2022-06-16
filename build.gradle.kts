@@ -22,16 +22,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.apache.commons:commons-csv:1.9.0")
-	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("io.freefair.gradle:lombok-plugin:6.4.3")
 	implementation("org.liquibase:liquibase-core")
-	implementation("org.projectlombok:lombok:1.18.24")
 	implementation("org.valiktor:valiktor-core:0.12.0")
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("junit:junit:4.13")
 
 
 }
