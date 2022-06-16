@@ -3,7 +3,6 @@ package com.bushelpowered.pokedex.entities
 import com.fasterxml.jackson.annotation.JsonValue
 import javax.persistence.*
 
-
 @Table(name="abilities")
 @Entity
 data class Ability(

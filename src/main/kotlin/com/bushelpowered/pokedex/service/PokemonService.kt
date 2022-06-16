@@ -20,4 +20,8 @@ class PokemonService(private val pokemonRepository: PokemonRepository) {
         }else null
     }
 
+    fun findPokemonByName(name: String): List<Pokemon> {
+        return pokemonRepository.findByNameContaining(name)
+    }
+
 }

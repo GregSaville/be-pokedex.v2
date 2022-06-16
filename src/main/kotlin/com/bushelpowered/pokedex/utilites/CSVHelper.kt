@@ -1,6 +1,5 @@
 package com.bushelpowered.pokedex.utilites
 
-
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.springframework.stereotype.Component
@@ -18,7 +17,6 @@ class CSVHelper{
             StandardCharsets.UTF_8, CSVFormat.EXCEL.withHeader())
     }
 
-
     fun dataToList(data: String) : List<String> {
         var returnString = data
         returnString = returnString.replace("[","")
@@ -26,18 +24,6 @@ class CSVHelper{
         returnString = returnString.replace(" ","")
         returnString = returnString.replace("]","")
         return returnString.split(",")
-    }
-
-    private fun handleStats(id: String, stats: MutableMap<Any, Any>) {
-        TODO("Not yet implemented")
-    }
-
-    private fun handleEggGroup(id: String, eggGroup: List<String>) {
-        TODO("Not yet implemented")
-    }
-
-    private fun handleAbilities(id: String, abilities: List<String>) {
-        TODO("Not yet implemented")
     }
 
 }

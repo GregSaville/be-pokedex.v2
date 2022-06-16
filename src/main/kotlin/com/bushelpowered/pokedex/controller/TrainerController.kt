@@ -47,7 +47,6 @@ class TrainerController(private val trainerService: TrainerService){
                 ResponseEntity.badRequest().build()
             }
         }else ResponseEntity.badRequest().build()
-
     }
 
     @DeleteMapping("/{id}")
@@ -58,6 +57,5 @@ class TrainerController(private val trainerService: TrainerService){
             ResponseEntity.accepted().build()
         }else ResponseEntity.notFound().build()
     }
-
 
 }

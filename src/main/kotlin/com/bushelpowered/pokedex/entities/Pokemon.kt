@@ -1,7 +1,6 @@
 package com.bushelpowered.pokedex.entities
 import javax.persistence.*
 
-
 @Entity
 data class Pokemon(
     @Id

@@ -17,12 +17,19 @@ class PokemonController(private val pokemonService: PokemonService) {
             } else(ResponseEntity.notFound().build())
     }
 
-
     @GetMapping("/{id}")
     fun getPokemonById(@PathVariable(value = "id") pokeId: String): ResponseEntity<Pokemon>{
         return if(pokemonService.findPokemonById(pokeId) != null) {
                 ResponseEntity.ok(pokemonService.findPokemonById(pokeId))
             } else(ResponseEntity.notFound().build())
+    }
+
+    @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["name"])
+    fun getPokemonByName(@RequestParam(name = "name") name :String) : ResponseEntity<List<Pokemon>>{
+        val tmpPokeList = pokemonService.findPokemonByName(name)
+        return if(tmpPokeList.isNotEmpty()){
+            ResponseEntity.ok(tmpPokeList)
+        }else ResponseEntity.notFound().build()
     }
 
 }
