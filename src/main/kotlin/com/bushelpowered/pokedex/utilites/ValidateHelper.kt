@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component
 @Component
 class ValidateHelper {
 
-    fun isNumber(num: String) : Boolean {
-        return try{
+    fun isNumber(num: String): Boolean {
+        return try {
             num.toInt()
             true
-        } catch(ex : Exception){
+        } catch (ex: Exception) {
             false
         }
     }

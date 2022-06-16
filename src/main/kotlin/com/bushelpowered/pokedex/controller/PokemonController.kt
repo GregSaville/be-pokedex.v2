@@ -2,6 +2,7 @@ package com.bushelpowered.pokedex.controller
 
 import com.bushelpowered.pokedex.service.PokemonService
 import com.bushelpowered.pokedex.entities.Pokemon
+import com.bushelpowered.pokedex.utilites.ValidateHelper
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -25,11 +26,19 @@ class PokemonController(private val pokemonService: PokemonService) {
     }
 
     @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["name"])
-    fun getPokemonByName(@RequestParam(name = "name") name :String) : ResponseEntity<List<Pokemon>>{
+    fun getPokemonByName(@RequestParam(name = "name", defaultValue = "pikachu") name :String) : ResponseEntity<List<Pokemon>>{
         val tmpPokeList = pokemonService.findPokemonByName(name)
         return if(tmpPokeList.isNotEmpty()){
             ResponseEntity.ok(tmpPokeList)
         }else ResponseEntity.notFound().build()
+    }
+
+    @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["type"])
+    fun getPokemonByType(@RequestParam(name = "type") type :String) : ResponseEntity<List<Pokemon>> {
+            val tmpPokeList = pokemonService.findPokemonByType(type.split(','))
+             return if (tmpPokeList.isNotEmpty()) {
+                ResponseEntity.ok(tmpPokeList)
+            } else ResponseEntity.notFound().build()
     }
 
 }
