@@ -7,6 +7,7 @@ import javax.persistence.*
 @Entity
 data class EggGroup(
     @Id
+    @Column(name="group_id")
     val groupId : String,
 
     @JsonValue

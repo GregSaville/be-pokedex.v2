@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 data class Ability(
     @Id
-    @JoinTable(name="pokemon_ability", joinColumns = [JoinColumn(name = "ability_id")], inverseJoinColumns = [JoinColumn(name="ability_id")])
+    @Column(name="ability_id")
     val abilityId: String,
 
     @JsonValue

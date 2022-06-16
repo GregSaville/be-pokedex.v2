@@ -1,42 +1,60 @@
 package com.bushelpowered.pokedex.controller
 
 import com.bushelpowered.pokedex.dto.TrainerRequestDTO
+import com.bushelpowered.pokedex.dto.TrainerResponseDTO
 import com.bushelpowered.pokedex.service.TrainerService
-import com.bushelpowered.pokedex.entities.Trainer
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.valiktor.ConstraintViolationException
+import org.valiktor.functions.hasSize
+import org.valiktor.functions.isEmail
+import org.valiktor.functions.isNotNull
+import org.valiktor.validate
 
 @RestController
 @RequestMapping("/api/trainers")
-class TrainerController(val service: TrainerService){
+class TrainerController(private val trainerService: TrainerService){
 
     @GetMapping("")
-    fun getAll() = service.getAllTrainers()
+    fun getAll(): ResponseEntity<List<TrainerResponseDTO>> {
+        return if(trainerService.getAllTrainers().isNotEmpty()){
+            ResponseEntity.ok(trainerService.getAllTrainers())
+        }else ResponseEntity.notFound().build()
+    }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long) : ResponseEntity<Trainer> {
-        val currentTrainer = service.getTrainerById(id)
+    fun getById(@PathVariable id: Long) : ResponseEntity<TrainerResponseDTO> {
+        val currentTrainer = trainerService.getTrainerById(id)
         return if(currentTrainer != null){
             ResponseEntity.ok(currentTrainer)
         }else ResponseEntity.notFound().build()
     }
 
-    @RequestMapping(value= ["/"],method = [RequestMethod.GET])
-    fun getTrainerByName(@RequestParam(value="name")name : String) : ResponseEntity<List<Trainer>> {
-        val currentTrainers = service.getTrainerByName(name)
-        return if(currentTrainers.isNotEmpty()){
-            ResponseEntity.ok(currentTrainers)
-        }else ResponseEntity.notFound().build()
+    @PostMapping("")
+    fun addTrainer(@RequestBody trainer: TrainerRequestDTO) : ResponseEntity<TrainerResponseDTO> {
+        return if(trainerService.getTrainerByEmail(trainer.email) == null){
+            try{
+                validate(TrainerRequestDTO(trainer.name, trainer.email, trainer.password)){
+                    validate(TrainerRequestDTO::name).isNotNull().hasSize(min=2)
+                    validate(TrainerRequestDTO::email).isEmail()
+                    validate(TrainerRequestDTO::password).hasSize(min=6)
+                }
+                trainerService.addTrainer(trainer)
+            } catch (ex: ConstraintViolationException){
+                ex.constraintViolations
+                    .map { "${it.property}: ${it.constraint.name}" }
+                    .forEach(::println)
+                ResponseEntity.badRequest().build()
+            }
+        }else ResponseEntity.badRequest().build()
+
     }
 
-//    @PostMapping("")
-//    fun addTrainer(@RequestBody trainer: TrainerRequestDTO) : ResponseEntity<Trainer> = ResponseEntity.ok(service.addTrainer(trainer))
-
     @DeleteMapping("/{id}")
-    fun removeTrainer(@PathVariable id: Long) : ResponseEntity<Trainer> {
-        val currentTrainer = service.getTrainerById(id)
+    fun removeTrainer(@PathVariable id: Long) : ResponseEntity<TrainerResponseDTO> {
+        val currentTrainer = trainerService.getTrainerById(id)
         return if(currentTrainer != null) {
-            service.removeTrainer(currentTrainer)
+            trainerService.removeTrainer(currentTrainer.id)
             ResponseEntity.accepted().build()
         }else ResponseEntity.notFound().build()
     }

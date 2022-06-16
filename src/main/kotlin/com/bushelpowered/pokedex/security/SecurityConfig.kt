@@ -25,10 +25,11 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
             .and().httpBasic()
 
         http.authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/api/trainers").hasAnyRole("ADMIN")
-            .antMatchers(HttpMethod.POST, "/api/trainers").hasAnyRole("ADMIN")
+            .antMatchers(HttpMethod.PUT, "/admin/loadCSV").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.DELETE, "/api/trainers/**").hasAnyRole("ADMIN")
-            .antMatchers(HttpMethod.GET, "/api/pokemon","/api/pokemon/**","/api","/welcome").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/trainers").permitAll()
+            .antMatchers(HttpMethod.PUT, "/api/trainers/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/pokemon","/api/pokemon/**", "/api/trainers/**", "/api/trainers").permitAll()
             .anyRequest().authenticated()
     }
 

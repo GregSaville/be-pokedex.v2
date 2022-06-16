@@ -1,119 +1,72 @@
 package com.bushelpowered.pokedex.service
 
-import com.bushelpowered.pokedex.entities.Pokemon
+import com.bushelpowered.pokedex.dto.TrainerRequestDTO
+import com.bushelpowered.pokedex.dto.TrainerResponseDTO
 import com.bushelpowered.pokedex.entities.Trainer
-import com.bushelpowered.pokedex.repositories.PokemonRepository
+import com.bushelpowered.pokedex.repositories.CapturedRepository
 import com.bushelpowered.pokedex.repositories.TrainerRepository
+import org.springframework.http.ResponseEntity
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import java.security.SecureRandom
 
 @Service
+class TrainerService(private val trainerRepository: TrainerRepository, private val capturedRepository: CapturedRepository) {
 
-class TrainerService(private val trainerRepository: TrainerRepository, private val pokemonRepository: PokemonRepository) {
+    val encoder = BCryptPasswordEncoder(10, SecureRandom())
 
-    fun getAllTrainers(): List<Trainer> = trainerRepository.findAll()
+    fun getAllTrainers(): List<TrainerResponseDTO> {
+        val tmpMutList = mutableListOf<TrainerResponseDTO>()
+        trainerRepository.findAll().forEach {
+            tmpMutList.add(
+                TrainerResponseDTO(
+                it.id,
+                it.name,
+                it.email
+            )
+            )
+        }
+        return tmpMutList.toList()
+    }
 
-    fun getTrainerById(trainerId: Long): Trainer? {
-        return if (trainerRepository.findById(trainerId).isPresent) {
-            trainerRepository.findById(trainerId).get()
+    fun getTrainerById(trainerId: Long): TrainerResponseDTO? {
+        val tmpTrainer = trainerRepository.findById(trainerId)
+        return if (tmpTrainer.isPresent) {
+            TrainerResponseDTO(
+                tmpTrainer.get().id,
+                tmpTrainer.get().name,
+                tmpTrainer.get().email
+            )
         } else null
     }
 
-    fun getTrainerByName(trainerName: String): List<Trainer> = trainerRepository.findByName(trainerName)
+    fun getTrainerByEmail(email : String): TrainerResponseDTO? {
+        val tmpTrainer = trainerRepository.findTrainerByEmail(email)
+        return if(tmpTrainer != null){
+            TrainerResponseDTO(
+                tmpTrainer.id,
+                tmpTrainer.name,
+                tmpTrainer.email)
+        }else null
+    }
 
-    fun addTrainer(trainer: Trainer): Trainer {
-        if (trainerRepository.findTrainerByEmail(trainer.email) != null) {
-            println("${trainer.email} is already registered")
-        } else {
-            trainerRepository.save(trainer)
+    fun addTrainer(trainer: TrainerRequestDTO): ResponseEntity<TrainerResponseDTO> {
+        trainerRepository.save(Trainer(
+            getAllTrainers().size.toLong()+1,
+            trainer.name,
+            trainer.email,
+            encoder.encode(trainer.password),
+            emptyList()
+        ))
+        return ResponseEntity.accepted().build()
+    }
+
+    fun removeTrainer(id: Long){
+        val tmpTrainer = trainerRepository.findById(id)
+        trainerRepository.delete(tmpTrainer.get())
+        capturedRepository.findEntriesByTrainerId(id).forEach {
+            capturedRepository.delete(it)
         }
-        return trainer
-    }
-
-    fun removeTrainer(trainer: Trainer): Trainer {
-        trainerRepository.delete(trainer)
-        println("${trainer.email} was removed")
-        return trainer
-    }
-
-    fun addPokemon(pokeId: String, trainer: Trainer): Trainer {
-        return (
-                trainerRepository.save(
-                    Trainer(
-                        name = trainer.name,
-                        email = trainer.email,
-                        password = trainer.password,
-                        capturedPokemon = handleCapture(trainer.capturedPokemon, pokeId),
-                        id = trainer.id
-                    )
-                ))
-    }
-
-
-    fun findTrainersPokemon(trainer: Trainer): List<Pokemon> {
-        val listOfPokeID = trainer.capturedPokemon.split(" ")
-        return pokemonRepository.findAllById(listOfPokeID)
-    }
-
-    fun clearTrainersPokemon(trainer: Trainer): Trainer {
-        return (
-                trainerRepository.save(
-                    Trainer(
-                        name = trainer.name,
-                        email = trainer.email,
-                        password = trainer.password,
-                        capturedPokemon = "",
-                        id = trainer.id
-                    )
-                ))
-    }
-
-
-    private fun verifyNumber(toTest: String): String {
-        var testList = toTest.split(" ", "\n")
-        testList = testList.toSet().toList()
-        var returnString = ""
-        testList.forEach {
-            if (isNumber(it)) {
-                if (it.toInt() in 1..553) {
-                    returnString = "$returnString $it"
-                } else {
-                    println("Invalid Pokemon Number: $it")
-                }
-            } else {
-                println("Invalid Pokemon Number: $it")
-            }
-        }
-        return returnString.trim()
-    }
-
-    private fun isNumber(token: String): Boolean {
-        return if (token.isNullOrEmpty()) {
-            false
-        } else token.all { Character.isDigit(it) }
-    }
-
-    private fun handleCapture(capturedPokemon: String, pokeId: String): String {
-        var updatedCapturedPokemon = if (capturedPokemon.isEmpty()) {
-            verifyNumber(pokeId)
-        } else {
-            capturedPokemon + " " + verifyNumber(pokeId)
-        }
-        updatedCapturedPokemon = removeDuplicatesAndSort(updatedCapturedPokemon.split(" "))
-        return updatedCapturedPokemon
-    }
-
-    private fun removeDuplicatesAndSort(updatedCapturedPokemon: List<String>): String {
-        var returnString = ""
-        var sortedCapturedPokemon = mutableListOf<Int>()
-
-        updatedCapturedPokemon.toSet().toList().forEach {
-            sortedCapturedPokemon.add(it.toInt())
-        }
-
-        sortedCapturedPokemon.sorted().forEach {
-            returnString = "$returnString${it.toString()} "
-        }
-        return returnString.trim()
     }
 
 }

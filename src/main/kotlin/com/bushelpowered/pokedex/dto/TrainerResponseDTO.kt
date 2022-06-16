@@ -1,4 +1,10 @@
 package com.bushelpowered.pokedex.dto
 
-class TrainerResponseDTO {
-}
+import org.valiktor.validate
+
+data class TrainerResponseDTO(
+    val id: Long,
+    val name : String,
+    val email: String
+)
+

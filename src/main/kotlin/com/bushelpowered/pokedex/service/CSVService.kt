@@ -98,11 +98,8 @@ class CSVService(private val helper: CSVHelper,
                     pokemonGroupCount += 1
                 }
             }
-
-
         }
     }
-
 
     private fun isGroupPresent(group: String): Boolean {
         return eggGroupRepository.findByGroup(group) != null

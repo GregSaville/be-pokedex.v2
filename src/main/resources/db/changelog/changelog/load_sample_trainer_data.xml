@@ -10,32 +10,28 @@
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
     <changeSet id="04" author="gsaville">
         <insert tableName="trainers">
-            <column name="id" value="1"/>
+            <column name="trainer_id" value="1"/>
             <column name="name" value="Red"/>
             <column name="email" value="red@palletTown.com"/>
             <column name="password" value="pok3M4st3r"/>
-            <column name="captured_pokemon" value="3 6 9 25 143 131"/>
         </insert>
         <insert tableName="trainers">
-            <column name="id" value="2"/>
+            <column name="trainer_id" value="2"/>
             <column name="name" value="Gold"/>
             <column name="email" value="gold@newBarkTown.com"/>
-            <column name="password" value="dragonsRcool"/>
-            <column name="captured_pokemon" value="154 157 160 214 233 248"/>
+            <column name="password" value="superEncodedPassword"/>
         </insert>
         <insert tableName="trainers">
-            <column name="id" value="3"/>
+            <column name="trainer_id" value="3"/>
             <column name="name" value="Ruby"/>
             <column name="email" value="ruby@littleRootTown.com"/>
-            <column name="password" value="whatIsAMega"/>
-            <column name="captured_pokemon" value="254 257 260 289 306 376"/>
+            <column name="password" value="$sTr1n6P4ssw0rDEnc0d3d"/>
         </insert>
         <insert tableName="trainers">
-            <column name="id" value="4"/>
+            <column name="trainer_id" value="4"/>
             <column name="name" value="Platinum"/>
-            <column name="email" value="platinum@littleRootTown.com"/>
-            <column name="password" value="gen4bestgen"/>
-            <column name="captured_pokemon" value="389 392 395 397 466 491"/>
+            <column name="email" value="platinum@somethingTown.com"/>
+            <column name="password" value="thisPasswordisReallyEncyrpted"/>
         </insert>
 
     </changeSet>

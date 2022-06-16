@@ -28,6 +28,7 @@ dependencies {
 	implementation("io.freefair.gradle:lombok-plugin:6.4.3")
 	implementation("org.liquibase:liquibase-core")
 	implementation("org.projectlombok:lombok:1.18.24")
+	implementation("org.valiktor:valiktor-core:0.12.0")
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -45,3 +46,4 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+

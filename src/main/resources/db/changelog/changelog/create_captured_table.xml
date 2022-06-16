@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
+    <changeSet id="13" author="gsaville">
+        <createTable tableName="captured">
+            <column name="captured_id"  type="varchar(50)">
+                <constraints primaryKey="true" primaryKeyName="captured_pkey"/>
+            </column>
+            <column name="trainer_id" type="bigint"/>
+            <column name="poke_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="captured" baseColumnNames="poke_id" constraintName="fk_captured2pokemon" referencedTableName="pokemon"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="captured" baseColumnNames="trainer_id" constraintName="fk_captured2trainer" referencedTableName="trainers"
+                                 referencedColumnNames="trainer_id"/>
+    </changeSet>
+</databaseChangeLog>
