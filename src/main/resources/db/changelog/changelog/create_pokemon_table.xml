@@ -18,6 +18,11 @@
             <column name="weight" type="double"/>
             <column name="genus" type="varchar(100)"/>
             <column name="description" type="varchar(500)"/>
+            <column name="image" type="varchar(255)"/>
+            <column name="sprite" type="varchar(255)"/>
+            <column name="gif" type="varchar(255)"/>
+            <column name="shiny_gif" type="varchar(255)"/>
+            <column name="shiny_sprite" type="varchar(255)"/>
         </createTable>
 
     </changeSet>

@@ -7,22 +7,23 @@ import java.net.URL
 import java.nio.charset.StandardCharsets
 
 @Component
-class CSVHelper{
+class CSVHelper {
 
-    fun getCSVParser() : CSVParser {
+    fun getCSVParser(): CSVParser {
         val url =
             URL("https://bitbucket.org/!api/2.0/snippets/myriadmobile/Rerr8E/96d04ea30f8e177149dd0c1c98271f1843b5f9b7/files/pokedex.csv")
         return CSVParser.parse(
             url,
-            StandardCharsets.UTF_8, CSVFormat.EXCEL.withHeader())
+            StandardCharsets.UTF_8, CSVFormat.EXCEL.withHeader()
+        )
     }
 
-    fun dataToList(data: String) : List<String> {
+    fun dataToList(data: String): List<String> {
         var returnString = data
-        returnString = returnString.replace("[","")
-        returnString = returnString.replace("\"","")
-        returnString = returnString.replace(" ","")
-        returnString = returnString.replace("]","")
+        returnString = returnString.replace("[", "")
+        returnString = returnString.replace("\"", "")
+        returnString = returnString.replace(" ", "")
+        returnString = returnString.replace("]", "")
         return returnString.split(",")
     }
 

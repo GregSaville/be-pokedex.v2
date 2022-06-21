@@ -8,16 +8,17 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.stereotype.Service
 
 @Service
-class CSVService(private val helper: CSVHelper,
-                 private val pokemonModelRepository: PokemonModelRepository,
-                 private val typeRepository: TypeRepository,
-                 private val pokemonTypesRepository: PokemonTypesRepository,
-                 private val abilityRepository: AbilityRepository,
-                 private val pokemonAbilitiesRepository: PokemonAbilitiesRepository,
-                 private val eggGroupRepository: EggGroupRepository,
-                 private val pokemonEggGroupRepository: PokemonEggGroupRepository,
-                 private val statsRepository: StatsRepository
-                 ) {
+class CSVService(
+    private val helper: CSVHelper,
+    private val pokemonModelRepository: PokemonModelRepository,
+    private val typeRepository: TypeRepository,
+    private val pokemonTypesRepository: PokemonTypesRepository,
+    private val abilityRepository: AbilityRepository,
+    private val pokemonAbilitiesRepository: PokemonAbilitiesRepository,
+    private val eggGroupRepository: EggGroupRepository,
+    private val pokemonEggGroupRepository: PokemonEggGroupRepository,
+    private val statsRepository: StatsRepository
+) {
 
 
     fun savePokemon(pokemon: PokemonModel) = pokemonModelRepository.save(pokemon)
@@ -42,15 +43,19 @@ class CSVService(private val helper: CSVHelper,
             val stats = ObjectMapper().readValue<MutableMap<Any, Any>>(line[7])
             val genus = line[8]
             val desc = line[9]
-            savePokemon(PokemonModel(id, name, height, weight, genus, desc))
-            statsRepository.save(Stats(id,
-                stats["hp"] as Int,
-                stats["speed"] as Int,
-                stats["attack"] as Int,
-                stats["defense"] as Int,
-                stats["special-attack"] as Int,
-                stats["special-defense"] as Int))
-
+            handleModelSave(id,name,height,weight,genus,desc)
+            statsRepository.save(
+                Stats(
+                    id,
+                    stats["hp"] as Int,
+                    stats["speed"] as Int,
+                    stats["attack"] as Int,
+                    stats["defense"] as Int,
+                    stats["special-attack"] as Int,
+                    stats["special-defense"] as Int
+                )
+            )
+            savePokemon(handleModelSave(id,name,height,weight,genus,desc))
             types.forEach { type ->
                 if (!isTypePresent(type)) {
                     typeRepository.save(Type(typeCount.toString(), type))
@@ -97,6 +102,96 @@ class CSVService(private val helper: CSVHelper,
                     )
                     pokemonGroupCount += 1
                 }
+            }
+        }
+    }
+
+    private fun handleModelSave(id: String, name: String, height: String, weight: String, genus: String, desc: String) : PokemonModel {
+        when(name){
+            "Mr. Mime" -> {
+                return PokemonModel(
+                    id,
+                    "Mr.Mime",
+                    height,
+                    weight,
+                    genus,
+                    desc,
+                    "https://img.pokemondb.net/sprites/home/normal/1x/mr-mime.png",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/mr-mime.png",
+                    "https://projectpokemon.org/images/normal-sprite/mr.mime.gif",
+                    "https://projectpokemon.org/images/shiny-sprite/mr._mime.gif",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/shiny/mr-mime.png")
+            }
+            "Nidoran♂" -> {
+                return PokemonModel(
+                    id,
+                    name,
+                    height,
+                    weight,
+                    genus,
+                    desc,
+                    "https://img.pokemondb.net/sprites/home/normal/1x/nidoran-m.png",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/nidoran-m.png",
+                    "https://projectpokemon.org/images/normal-sprite/nidoran_m.gif",
+                    "https://projectpokemon.org/images/shiny-sprite/nidoran_m.gif",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/shiny/nidoran-m.png")
+            }
+            "Nidoran♀" -> {
+                return PokemonModel(
+                    id,
+                    name,
+                    height,
+                    weight,
+                    genus,
+                    desc,
+                    "https://img.pokemondb.net/sprites/home/normal/1x/nidoran-f.png",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/nidoran-f.png",
+                    "https://projectpokemon.org/images/normal-sprite/nidoran_f.gif",
+                    "https://projectpokemon.org/images/shiny-sprite/nidoran_f.gif",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/shiny/nidoran-f.png")
+            }
+            "Farfetch’d" -> {
+                return PokemonModel(
+                    id,
+                    name,
+                    height,
+                    weight,
+                    genus,
+                    desc,
+                    "https://img.pokemondb.net/sprites/home/normal/1x/farfetchd.png",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/farfetchd.png",
+                    "https://projectpokemon.org/images/normal-sprite/farfetchd.gif",
+                    "https://projectpokemon.org/images/shiny-sprite/farfetchd.gif",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/shiny/farfetchd.png")
+            }
+            "Mime Jr." -> {
+                return PokemonModel(
+                    id,
+                    name,
+                    height,
+                    weight,
+                    genus,
+                    desc,
+                    "https://img.pokemondb.net/sprites/home/normal/1x/mime-jr.png",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/mime-jr.png",
+                    "https://projectpokemon.org/images/normal-sprite/mime_jr.gif",
+                    "https://projectpokemon.org/images/shiny-sprite/mime_jr.gif",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/shiny/mime-jr.png")
+            }
+            else -> {
+                return PokemonModel(
+                    id,
+                    name,
+                    height,
+                    weight,
+                    genus,
+                    desc,
+                    "https://img.pokemondb.net/sprites/home/normal/1x/${name.lowercase()}.png",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${name.lowercase()}.png",
+                    "https://projectpokemon.org/images/normal-sprite/${name.lowercase()}.gif",
+                    "https://projectpokemon.org/images/shiny-sprite/${name.lowercase()}.gif",
+                    "https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/shiny/${name.lowercase()}.png"
+                )
             }
         }
     }

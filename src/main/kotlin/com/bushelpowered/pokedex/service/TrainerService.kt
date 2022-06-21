@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service
 import java.security.SecureRandom
 
 @Service
-class TrainerService(private val trainerRepository: TrainerRepository, private val capturedRepository: CapturedRepository) {
+class TrainerService(
+    private val trainerRepository: TrainerRepository,
+    private val capturedRepository: CapturedRepository
+) {
 
     val encoder = BCryptPasswordEncoder(10, SecureRandom())
 
@@ -20,10 +23,10 @@ class TrainerService(private val trainerRepository: TrainerRepository, private v
         trainerRepository.findAll().forEach {
             tmpMutList.add(
                 TrainerResponseDTO(
-                it.id,
-                it.name,
-                it.email
-            )
+                    it.id,
+                    it.name,
+                    it.email
+                )
             )
         }
         return tmpMutList.toList()
@@ -40,28 +43,31 @@ class TrainerService(private val trainerRepository: TrainerRepository, private v
         } else null
     }
 
-    fun getTrainerByEmail(email : String): TrainerResponseDTO? {
+    fun getTrainerByEmail(email: String): TrainerResponseDTO? {
         val tmpTrainer = trainerRepository.findTrainerByEmail(email)
-        return if(tmpTrainer != null){
+        return if (tmpTrainer != null) {
             TrainerResponseDTO(
                 tmpTrainer.id,
                 tmpTrainer.name,
-                tmpTrainer.email)
-        }else null
+                tmpTrainer.email
+            )
+        } else null
     }
 
     fun addTrainer(trainer: TrainerRequestDTO): ResponseEntity<TrainerResponseDTO> {
-        trainerRepository.save(Trainer(
-            getAllTrainers().size.toLong()+1,
-            trainer.name,
-            trainer.email,
-            encoder.encode(trainer.password),
-            emptyList()
-        ))
+        trainerRepository.save(
+            Trainer(
+                getAllTrainers().size.toLong() + 1,
+                trainer.name,
+                trainer.email,
+                encoder.encode(trainer.password),
+                emptyList()
+            )
+        )
         return ResponseEntity.accepted().build()
     }
 
-    fun removeTrainer(id: Long){
+    fun removeTrainer(id: Long) {
         val tmpTrainer = trainerRepository.findById(id)
         trainerRepository.delete(tmpTrainer.get())
         capturedRepository.findEntriesByTrainerId(id).forEach {

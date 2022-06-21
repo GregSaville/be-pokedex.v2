@@ -6,7 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
 
-@Table(name="stats")
+@Table(name = "stats")
 @Entity
 data class Stats(
     @JsonIgnore
@@ -14,17 +14,17 @@ data class Stats(
     @Id
     val id: String,
 
-    val hp : Int,
+    val hp: Int,
 
-    val speed : Int,
+    val speed: Int,
 
-    val attack : Int,
+    val attack: Int,
 
-    val defense : Int,
+    val defense: Int,
 
-    @Column(name="specialattack")
-    val specialAttack : Int,
+    @Column(name = "specialattack")
+    val specialAttack: Int,
 
-    @Column(name="specialdefense")
-    val specialDefense : Int
+    @Column(name = "specialdefense")
+    val specialDefense: Int
 )

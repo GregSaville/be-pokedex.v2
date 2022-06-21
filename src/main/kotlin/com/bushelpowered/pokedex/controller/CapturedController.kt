@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/trainers")
-class CapturedController(private val captureService : CaptureService, private val trainerService: TrainerService) {
+class CapturedController(private val captureService: CaptureService, private val trainerService: TrainerService) {
 
     @PutMapping("/{id}/captured")
-    fun capturePokemon(@PathVariable id: Long, @RequestBody pokeId: String) : ResponseEntity<CapturedResponseDTO> {
+    fun capturePokemon(@PathVariable id: Long, @RequestBody pokeId: String): ResponseEntity<CapturedResponseDTO> {
         val currentTrainer = trainerService.getTrainerById(id)
-        return if(currentTrainer != null){
-                if(ValidateHelper().isNumber(pokeId)){
-                    if(pokeId.toInt() in 1..553){
-                        ResponseEntity.ok(captureService.addPokemon(pokeId, currentTrainer.id))
-                    }else ResponseEntity.badRequest().build()
-                }else ResponseEntity.badRequest().build()
-        }else(ResponseEntity.notFound().build())
+        return if (currentTrainer != null) {
+            if (ValidateHelper().isNumber(pokeId)) {
+                if (pokeId.toInt() in 1..553) {
+                    ResponseEntity.ok(captureService.addPokemon(pokeId, currentTrainer.id))
+                } else ResponseEntity.badRequest().build()
+            } else ResponseEntity.badRequest().build()
+        } else (ResponseEntity.notFound().build())
     }
 
     @GetMapping("/{id}/captured")
-    fun getCapturedPokemon(@PathVariable id: Long) : ResponseEntity<CapturedResponseDTO> {
-        return if(trainerService.getTrainerById(id) != null){
+    fun getCapturedPokemon(@PathVariable id: Long): ResponseEntity<CapturedResponseDTO> {
+        return if (trainerService.getTrainerById(id) != null) {
             ResponseEntity.ok(captureService.findTrainersPokemon(id))
-        }else(ResponseEntity.notFound().build())
+        } else (ResponseEntity.notFound().build())
     }
 
 }

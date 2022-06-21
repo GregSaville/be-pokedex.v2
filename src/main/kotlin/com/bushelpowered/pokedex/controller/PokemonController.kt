@@ -12,33 +12,44 @@ import org.springframework.web.bind.annotation.*
 class PokemonController(private val pokemonService: PokemonService) {
 
     @RequestMapping(value = [""], method = [RequestMethod.GET])
-    fun getPokemonByPage(@RequestParam(name = "page", required = false, defaultValue = "0") page : Int) :ResponseEntity<Page<Pokemon>>{
-        return if(page > -1 && page < 37) {
-                ResponseEntity.ok(pokemonService.findPokemonByPage(page))
-            } else(ResponseEntity.notFound().build())
+    fun getPokemonByPage(
+        @RequestParam(
+            name = "page",
+            required = false,
+            defaultValue = "0"
+        ) page: Int
+    ): ResponseEntity<Page<Pokemon>> {
+        return if (page > -1 && page < 37) {
+            ResponseEntity.ok(pokemonService.findPokemonByPage(page))
+        } else (ResponseEntity.notFound().build())
     }
 
     @GetMapping("/{id}")
-    fun getPokemonById(@PathVariable(value = "id") pokeId: String): ResponseEntity<Pokemon>{
-        return if(pokemonService.findPokemonById(pokeId) != null) {
-                ResponseEntity.ok(pokemonService.findPokemonById(pokeId))
-            } else(ResponseEntity.notFound().build())
+    fun getPokemonById(@PathVariable(value = "id") pokeId: String): ResponseEntity<Pokemon> {
+        return if (pokemonService.findPokemonById(pokeId) != null) {
+            ResponseEntity.ok(pokemonService.findPokemonById(pokeId))
+        } else (ResponseEntity.notFound().build())
     }
 
     @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["name"])
-    fun getPokemonByName(@RequestParam(name = "name", defaultValue = "pikachu") name :String) : ResponseEntity<List<Pokemon>>{
+    fun getPokemonByName(
+        @RequestParam(
+            name = "name",
+            defaultValue = "pikachu"
+        ) name: String
+    ): ResponseEntity<HashMap<String, List<Pokemon>>>{
         val tmpPokeList = pokemonService.findPokemonByName(name)
-        return if(tmpPokeList.isNotEmpty()){
+        return if (tmpPokeList.isNotEmpty()) {
             ResponseEntity.ok(tmpPokeList)
-        }else ResponseEntity.notFound().build()
+        } else ResponseEntity.notFound().build()
     }
 
     @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["type"])
-    fun getPokemonByType(@RequestParam(name = "type") type :String) : ResponseEntity<List<Pokemon>> {
-            val tmpPokeList = pokemonService.findPokemonByType(type.split(','))
-             return if (tmpPokeList.isNotEmpty()) {
-                ResponseEntity.ok(tmpPokeList)
-            } else ResponseEntity.notFound().build()
+    fun getPokemonByType(@RequestParam(name = "type") type: String, @RequestParam(name="page", defaultValue = "0") page: Int): ResponseEntity<HashMap<String, List<Pokemon>>> {
+        val tmpMap = pokemonService.findPokemonByType(type.split(','), page)
+        return if (tmpMap["content"]!!.isNotEmpty()) {
+            ResponseEntity.ok(tmpMap)
+        } else ResponseEntity.notFound().build()
     }
 
 }
