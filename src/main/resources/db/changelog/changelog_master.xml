@@ -6,16 +6,16 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <include file="changelog/create_pokemon_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_trainer_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_types_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_stats_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_eggGroup_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_abilities_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_pokemon_types_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_pokemon_abilities_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_pokemon_eggGroup_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/create_captured_table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/load_sample_trainer_data.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/001_create_pokemon_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/002_create_trainer_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/003_create_types_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/004_create_stats_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/005_create_eggGroup_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/006_create_abilities_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/007_create_pokemon_types_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/008_create_pokemon_abilities_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/009_create_pokemon_eggGroup_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/010_create_captured_table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/011_load_sample_trainer_data.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

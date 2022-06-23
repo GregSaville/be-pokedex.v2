@@ -8,12 +8,15 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
-    <changeSet id="07" author="gsaville">
-        <createTable tableName="egg_group">
-            <column name="group_id"  type="bigint">
-                <constraints primaryKey="true" primaryKeyName="group_pkey"/>
+    <changeSet id="002" author="gsaville">
+        <createTable tableName="trainers">
+            <column name="trainer_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="trainerId"/>
             </column>
-            <column name="group_name" type="varchar(60)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255))"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
+

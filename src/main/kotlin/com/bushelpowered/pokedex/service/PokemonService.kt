@@ -1,6 +1,7 @@
 package com.bushelpowered.pokedex.service
 
 import com.bushelpowered.pokedex.entities.Pokemon
+import com.bushelpowered.pokedex.entities.Type
 import com.bushelpowered.pokedex.repositories.PokemonRepository
 import com.bushelpowered.pokedex.repositories.TypeRepository
 import com.fasterxml.jackson.databind.util.JSONPObject
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class PokemonService(private val pokemonRepository: PokemonRepository, private val typeRepository: TypeRepository) {
+class PokemonService(
+    private val pokemonRepository: PokemonRepository,
+    private val typeRepository: TypeRepository
+) {
 
     fun findPokemonByPage(page: Int): Page<Pokemon> {
         return pokemonRepository.findAll(PageRequest.of(page, 15))
@@ -22,46 +26,51 @@ class PokemonService(private val pokemonRepository: PokemonRepository, private v
         } else null
     }
 
-    fun findPokemonByName(name: String): HashMap<String, List<Pokemon>> {
-        val returnMap = hashMapOf<String, List<Pokemon>>()
-        returnMap["content"] = pokemonRepository.findByNameContaining(name).take(15)
-        return returnMap
+    fun findPokemonByName(name: String, page: Int): Page<Pokemon> {
+        return pokemonRepository.findByNameContaining(name, PageRequest.of(page, 15))
+
     }
 
-    fun findPokemonByType(types: List<String>, page: Int): HashMap<String, List<Pokemon>> {
-        val returnMap = hashMapOf<String, List<Pokemon>>()
-        val mutPokemon = mutableListOf<Pokemon>()
-        if(types.size == 1 && types[0].last() == '-'){
-            val type = types[0].dropLast(1)
-            val tmpType = listOf<String>(type)
-            if(validateTypes(tmpType)){
-                pokemonRepository.findByType(typeRepository.findByType(type)!!).forEach{
-                    if( it.type.size == 1) {
-                        mutPokemon.add(it)
-                    }
-                }
-               returnMap["content"] = mutPokemon
-                return returnMap
-            }
-        }
-        if (validateTypes(types)) {
-            pokemonRepository.findByType(typeRepository.findByType(types[0])!!).forEach {
-                mutPokemon.add(it)
-            }
-            if (types.size > 1) {
-                val type1 = mutableListOf<Pokemon>()
-                type1.addAll(mutPokemon)
-                mutPokemon.clear()
-                val type2 = pokemonRepository.findByType(typeRepository.findByType(types[1])!!)
-                type2.forEach {
-                    if (type1.contains(it)) {
-                        mutPokemon.add(it)
-                    }
+    fun findPokemonByType(types: List<String>, page: Int): Page<Pokemon>? {
+        val pokeList = mutableListOf<String>()
+        return if (validateTypes(listOf(types[0].dropLast(1)))) {
+            val result = pokemonRepository.findPokemonByTypeIn(listOf(getType(types[0].dropLast(1))))
+            result.forEach {
+                if (it.type.size == 1) {
+                    pokeList.add(it.id)
                 }
             }
-        }
-        returnMap["content"] = mutPokemon
-        return returnMap
+            pokemonRepository.findByIdIn(pokeList.toList(), PageRequest.of(page, 15))
+        } else null
+    }
+
+    fun findPokemonByTypes(types: List<String>, page: Int): Page<Pokemon>? {
+        val typeOneList = mutableListOf<String>()
+        val pokeList = mutableListOf<String>()
+        return if (validateTypes(types)) {
+            var result = pokemonRepository.findPokemonByTypeIn(listOf(getType(types[0])))
+            result.forEach {
+                typeOneList.add(it.id)
+            }
+            result = pokemonRepository.findPokemonByTypeIn(listOf(getType(types[1])))
+            result.forEach {
+                if (typeOneList.contains(it.id)) {
+                    pokeList.add(it.id)
+                }
+            }
+            pokemonRepository.findByIdIn(pokeList.toList(), PageRequest.of(page, 15))
+        } else null
+    }
+
+    fun findPokemonWithType(types: List<String>, page: Int): Page<Pokemon>? {
+        val pokeList = mutableListOf<String>()
+        return if (validateTypes(types)) {
+            val result = pokemonRepository.findPokemonByTypeIn(listOf(getType(types[0])))
+            result.forEach {
+                pokeList.add(it.id)
+            }
+            pokemonRepository.findByIdIn(pokeList.toList(), PageRequest.of(page, 15))
+        } else null
     }
 
     private fun validateTypes(types: List<String>): Boolean {
@@ -71,6 +80,10 @@ class PokemonService(private val pokemonRepository: PokemonRepository, private v
             }
         }
         return true
+    }
+
+    private fun getType(type: String): Type {
+        return typeRepository.findByType(type)!!
     }
 
 }

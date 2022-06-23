@@ -10,17 +10,16 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/admin")
 class CSVController(
-    private val helper: CSVHelper,
     private val CSVService: CSVService,
     private val pokemonService: PokemonService
 ) {
 
     @PutMapping("/loadCSV")
     fun loadCSV(): ResponseEntity<String> {
-        return if (pokemonService.findPokemonById("553") == null) {
+        return if (pokemonService.findPokemonById("1") == null) {
             CSVService.loadCSV()
             ResponseEntity.ok("Loaded CSV")
-        } else ResponseEntity.badRequest().build()
+        } else ResponseEntity.badRequest().body("CSV already Loaded")
     }
 
 }

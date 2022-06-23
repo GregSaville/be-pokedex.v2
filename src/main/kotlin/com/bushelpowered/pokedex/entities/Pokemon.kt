@@ -47,8 +47,12 @@ data class Pokemon(
     val description: String,
 
     val image: String,
+
     val sprite: String,
+
     val gif: String,
+
     val shinyGif: String,
+
     val shinySprite: String
 )

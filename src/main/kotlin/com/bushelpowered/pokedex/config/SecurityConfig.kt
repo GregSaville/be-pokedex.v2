@@ -33,22 +33,22 @@ class SecurityConfig(private val trainerRepo: TrainerRepository) : WebSecurityCo
             .antMatchers(HttpMethod.DELETE, "/api/trainers/**").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.POST, "/api/trainers").permitAll()
             .antMatchers(HttpMethod.PUT, "/api/trainers/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/pokemon", "/api/pokemon/**", "/api/trainers/**", "/api/trainers")
+            .antMatchers(HttpMethod.GET, "/api/**")
             .permitAll()
             .anyRequest().authenticated()
 
     }
 
-    override fun configure(auth : AuthenticationManagerBuilder) {
+    override fun configure(auth: AuthenticationManagerBuilder) {
         auth.inMemoryAuthentication()
             .passwordEncoder(encoder())
             .withUser("admin")
             .password(encoder().encode("admin"))
             .roles("ADMIN")
-        }
+    }
 
     @Bean
-    fun encoder() : PasswordEncoder {
+    fun encoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
 

@@ -36,19 +36,28 @@ class PokemonController(private val pokemonService: PokemonService) {
         @RequestParam(
             name = "name",
             defaultValue = "pikachu"
-        ) name: String
-    ): ResponseEntity<HashMap<String, List<Pokemon>>>{
-        val tmpPokeList = pokemonService.findPokemonByName(name)
-        return if (tmpPokeList.isNotEmpty()) {
-            ResponseEntity.ok(tmpPokeList)
-        } else ResponseEntity.notFound().build()
+        ) name: String,
+        @RequestParam(name = "page", defaultValue = "0") page: Int
+    ): ResponseEntity<Page<Pokemon>> {
+        val tmpPokeList = pokemonService.findPokemonByName(name, page)
+        return ResponseEntity.ok(tmpPokeList)
     }
 
     @RequestMapping(value = [""], method = [RequestMethod.GET], params = ["type"])
-    fun getPokemonByType(@RequestParam(name = "type") type: String, @RequestParam(name="page", defaultValue = "0") page: Int): ResponseEntity<HashMap<String, List<Pokemon>>> {
-        val tmpMap = pokemonService.findPokemonByType(type.split(','), page)
-        return if (tmpMap["content"]!!.isNotEmpty()) {
-            ResponseEntity.ok(tmpMap)
+    fun getPokemonByType(
+        @RequestParam(name = "type") type: String,
+        @RequestParam(name = "page", defaultValue = "0") page: Int
+    ): ResponseEntity<Page<Pokemon>> {
+        val input = type.split(',')
+        val tmpResult = if (input.size == 1) {
+            if (input[0].endsWith("~")) {
+                pokemonService.findPokemonByType(input, page)
+            } else pokemonService.findPokemonWithType(input, page)
+        } else {
+            pokemonService.findPokemonByTypes(input, page)
+        }
+        return if (tmpResult != null) {
+            ResponseEntity.ok(tmpResult)
         } else ResponseEntity.notFound().build()
     }
 

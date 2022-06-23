@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/trainers")
-class CapturedController(private val captureService: CaptureService, private val trainerService: TrainerService) {
+class CapturedController(
+    private val captureService: CaptureService,
+    private val trainerService: TrainerService
+) {
 
     @PutMapping("/{id}/captured")
     fun capturePokemon(@PathVariable id: Long, @RequestBody pokeId: String): ResponseEntity<CapturedResponseDTO> {
