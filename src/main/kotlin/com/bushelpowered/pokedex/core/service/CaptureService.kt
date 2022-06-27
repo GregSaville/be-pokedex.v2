@@ -4,8 +4,8 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.Captured
 import com.bushelpowered.pokedex.adapter.web.dto.CapturedResponseDTO
 import com.bushelpowered.pokedex.core.egress.CapturedPort
 import com.bushelpowered.pokedex.core.egress.TrainerPort
-import com.bushelpowered.pokedex.core.ingress.CapturePokemonUseCase
-import com.bushelpowered.pokedex.core.ingress.FindTrainerPokemonUseCase
+import com.bushelpowered.pokedex.core.ingress.capture.CapturePokemonUseCase
+import com.bushelpowered.pokedex.core.ingress.capture.FindTrainerPokemonUseCase
 import org.springframework.stereotype.Service
 
 @Service
