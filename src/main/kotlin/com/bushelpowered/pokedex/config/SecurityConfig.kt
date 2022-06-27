@@ -1,6 +1,6 @@
 package com.bushelpowered.pokedex.config
 
-import com.bushelpowered.pokedex.repositories.TrainerRepository
+import com.bushelpowered.pokedex.adapter.persistence.repository.TrainerRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod

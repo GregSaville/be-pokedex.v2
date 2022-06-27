@@ -1,8 +1,9 @@
 package com.bushelpowered.pokedex.service
 
-import com.bushelpowered.pokedex.entities.*
-import com.bushelpowered.pokedex.repositories.*
-import com.bushelpowered.pokedex.utilites.CSVHelper
+import com.bushelpowered.pokedex.adapter.persistence.entities.*
+import com.bushelpowered.pokedex.adapter.persistence.entities.Type
+import com.bushelpowered.pokedex.adapter.persistence.repository.*
+import com.bushelpowered.pokedex.core.utilites.CSVHelper
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.stereotype.Service
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service
 class CSVService(
     private val helper: CSVHelper,
     private val pokemonModelRepository: PokemonModelRepository,
-    private val typeRepository: TypeRepository,
+    private val typeRepositoryPort: TypeRepositoryPort,
     private val pokemonTypesRepository: PokemonTypesRepository,
     private val abilityRepository: AbilityRepository,
     private val pokemonAbilitiesRepository: PokemonAbilitiesRepository,
@@ -43,7 +44,6 @@ class CSVService(
             val stats = ObjectMapper().readValue<MutableMap<Any, Any>>(line[7])
             val genus = line[8]
             val desc = line[9]
-            handleModelSave(id,name,height,weight,genus,desc)
             statsRepository.save(
                 Stats(
                     id,
@@ -58,10 +58,10 @@ class CSVService(
             savePokemon(handleModelSave(id,name,height,weight,genus,desc))
             types.forEach { type ->
                 if (!isTypePresent(type)) {
-                    typeRepository.save(Type(typeCount.toString(), type))
+                    typeRepositoryPort.save(Type(typeCount.toString(), type))
                     typeCount += 1
                 }
-                val foundType = typeRepository.findByType(type)
+                val foundType = typeRepositoryPort.findByType(type)
                 if (foundType != null) {
                     pokemonTypesRepository.save(
                         PokemonTypes(
@@ -205,7 +205,7 @@ class CSVService(
     }
 
     private fun isTypePresent(type: String): Boolean {
-        return typeRepository.findByType(type) != null
+        return typeRepositoryPort.findByType(type) != null
     }
 
 }
