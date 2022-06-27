@@ -1,6 +1,6 @@
 package com.bushelpowered.pokedex.config
 
-import com.bushelpowered.pokedex.adapter.persistence.repository.TrainerRepository
+import com.bushelpowered.pokedex.adapter.persistence.repository.trainer.TrainerRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -18,7 +18,7 @@ import org.springframework.security.web.savedrequest.NullRequestCache
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-class SecurityConfig(private val trainerRepo: TrainerRepository) : WebSecurityConfigurerAdapter() {
+class SecurityConfig() : WebSecurityConfigurerAdapter() {
 
 
     override fun configure(http: HttpSecurity) {

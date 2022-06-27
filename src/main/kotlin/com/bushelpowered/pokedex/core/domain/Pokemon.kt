@@ -1,9 +1,9 @@
 package com.bushelpowered.pokedex.core.domain
 
-import com.bushelpowered.pokedex.adapter.persistence.entities.Type
-import com.bushelpowered.pokedex.adapter.persistence.entities.Ability
-import com.bushelpowered.pokedex.adapter.persistence.entities.EggGroup
-import com.bushelpowered.pokedex.adapter.persistence.entities.Stats
+import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
+import com.bushelpowered.pokedex.adapter.persistence.entities.csv.Ability
+import com.bushelpowered.pokedex.adapter.persistence.entities.csv.EggGroup
+import com.bushelpowered.pokedex.adapter.persistence.entities.csv.Stats
 import javax.persistence.*
 
 @Entity
