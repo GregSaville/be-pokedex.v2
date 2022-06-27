@@ -2,7 +2,7 @@ package com.bushelpowered.pokedex.adapter.web.controller.capture
 
 import com.bushelpowered.pokedex.adapter.web.dto.capture.CapturedResponseDto
 import com.bushelpowered.pokedex.core.ingress.trainer.CrudTrainerUseCase
-import com.bushelpowered.pokedex.core.service.csv.capture.CaptureService
+import com.bushelpowered.pokedex.core.service.capture.CaptureService
 import com.bushelpowered.pokedex.adapter.web.controller.capture.utility.ValidateHelper
 import com.bushelpowered.pokedex.core.ingress.capture.CapturePokemonUseCase
 import com.bushelpowered.pokedex.core.ingress.capture.FindTrainerPokemonUseCase

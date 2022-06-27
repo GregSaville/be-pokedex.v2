@@ -1,4 +1,4 @@
-package com.bushelpowered.pokedex.core.service.csv.capture
+package com.bushelpowered.pokedex.core.service.capture
 
 import com.bushelpowered.pokedex.adapter.persistence.entities.capture.Captured
 import com.bushelpowered.pokedex.adapter.web.dto.capture.CapturedResponseDto
