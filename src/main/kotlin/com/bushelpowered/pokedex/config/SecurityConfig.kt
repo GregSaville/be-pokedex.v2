@@ -29,7 +29,6 @@ class SecurityConfig() : WebSecurityConfigurerAdapter() {
             .and().httpBasic()
 
         http.authorizeRequests()
-            .antMatchers(HttpMethod.PUT, "/admin/loadCSV").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.DELETE, "/api/trainers/**").hasAnyRole("ADMIN")
             .antMatchers(HttpMethod.POST, "/api/trainers").permitAll()
             .antMatchers(HttpMethod.PUT, "/api/trainers/**").permitAll()
