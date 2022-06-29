@@ -4,9 +4,10 @@ import com.bushelpowered.pokedex.adapter.persistence.repository.type.TypeReposit
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
 import com.bushelpowered.pokedex.core.egress.type.TypePort
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
 
-@Component
+@Repository
 class TypeDao(private val repo: TypeRepositoryPort) : TypePort {
 
     override fun findAll(): List<Type> {

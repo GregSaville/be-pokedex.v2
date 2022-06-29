@@ -28,4 +28,8 @@ data class Trainer(
     )
     val capturedPokemon: List<Pokemon>
 
-)
+){
+    fun getPassword() : String{
+        return this.password
+    }
+}
