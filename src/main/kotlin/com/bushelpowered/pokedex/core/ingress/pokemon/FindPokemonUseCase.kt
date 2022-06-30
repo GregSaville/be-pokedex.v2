@@ -1,6 +1,6 @@
 package com.bushelpowered.pokedex.core.ingress.pokemon
 
-import com.bushelpowered.pokedex.core.domain.Pokemon
+import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import org.springframework.data.domain.Page
 
 interface FindPokemonUseCase :

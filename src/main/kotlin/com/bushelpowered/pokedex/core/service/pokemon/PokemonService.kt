@@ -1,6 +1,7 @@
 package com.bushelpowered.pokedex.core.service.pokemon
 
-import com.bushelpowered.pokedex.core.domain.Pokemon
+import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
+import com.bushelpowered.pokedex.core.domain.model.pokemon.PokemonModel
 import com.bushelpowered.pokedex.core.egress.pokemon.PokemonPort
 import com.bushelpowered.pokedex.core.egress.type.TypePort
 import com.bushelpowered.pokedex.core.ingress.pokemon.FindPokemonUseCase

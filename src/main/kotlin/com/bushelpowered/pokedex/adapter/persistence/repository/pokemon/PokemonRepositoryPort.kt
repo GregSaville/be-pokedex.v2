@@ -1,14 +1,15 @@
 package com.bushelpowered.pokedex.adapter.persistence.repository.pokemon
 
-import com.bushelpowered.pokedex.core.domain.Pokemon
+import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
+import com.bushelpowered.pokedex.core.egress.pokemon.PokemonPort
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Repository
 
-@Repository
-interface PokemonRepositoryPort : PagingAndSortingRepository<Pokemon, String> {
+
+interface PokemonRepositoryPort : PagingAndSortingRepository<Pokemon, String>{
 
     fun findByIdIn(pokeIdList : List<String>, page: PageRequest) : Page<Pokemon>
 

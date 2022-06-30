@@ -2,14 +2,15 @@ package com.bushelpowered.pokedex.adapter.persistence.dao.pokemon
 
 import com.bushelpowered.pokedex.adapter.persistence.repository.pokemon.PokemonRepositoryPort
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
-import com.bushelpowered.pokedex.core.domain.Pokemon
+import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import com.bushelpowered.pokedex.core.egress.pokemon.PokemonPort
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
 
-@Component
+@Repository
 class PokemonDao(private val repo: PokemonRepositoryPort) : PokemonPort {
 
     override fun findAll(pageRequest: PageRequest): Page<Pokemon> {

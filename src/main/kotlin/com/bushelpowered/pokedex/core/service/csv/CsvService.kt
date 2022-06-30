@@ -99,7 +99,7 @@ class CsvService(
         }
     }
 
-    private fun savePokemon(pokemon: PokemonModel) = csvPort.saveModel(pokemon)
+    private fun savePokemon(pokemon: PokemonModelEntity) = csvPort.saveModel(pokemon)
 
     private fun handleModelSave(
         id: String,
@@ -108,10 +108,10 @@ class CsvService(
         weight: String,
         genus: String,
         desc: String
-    ): PokemonModel {
+    ): PokemonModelEntity {
         when (name) {
             "Mr. Mime" -> {
-                return PokemonModel(
+                return PokemonModelEntity(
                     id,
                     "Mr.Mime",
                     height,
@@ -126,7 +126,7 @@ class CsvService(
                 )
             }
             "Nidoran♂" -> {
-                return PokemonModel(
+                return PokemonModelEntity(
                     id,
                     name,
                     height,
@@ -141,7 +141,7 @@ class CsvService(
                 )
             }
             "Nidoran♀" -> {
-                return PokemonModel(
+                return PokemonModelEntity(
                     id,
                     name,
                     height,
@@ -156,7 +156,7 @@ class CsvService(
                 )
             }
             "Farfetch’d" -> {
-                return PokemonModel(
+                return PokemonModelEntity(
                     id,
                     name,
                     height,
@@ -171,7 +171,7 @@ class CsvService(
                 )
             }
             "Mime Jr." -> {
-                return PokemonModel(
+                return PokemonModelEntity(
                     id,
                     name,
                     height,
@@ -186,7 +186,7 @@ class CsvService(
                 )
             }
             else -> {
-                return PokemonModel(
+                return PokemonModelEntity(
                     id,
                     name,
                     height,

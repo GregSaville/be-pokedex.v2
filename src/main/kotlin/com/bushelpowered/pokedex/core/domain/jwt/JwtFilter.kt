@@ -1,5 +1,6 @@
-package com.bushelpowered.pokedex.config
+package com.bushelpowered.pokedex.core.domain.jwt
 
+import com.bushelpowered.pokedex.core.service.jwt.JwtUserDetailsService
 import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder

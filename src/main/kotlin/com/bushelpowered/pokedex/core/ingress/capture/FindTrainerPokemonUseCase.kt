@@ -1,9 +1,9 @@
 package com.bushelpowered.pokedex.core.ingress.capture
 
-import com.bushelpowered.pokedex.adapter.web.dto.capture.CapturedResponseDto
+import com.bushelpowered.pokedex.adapter.persistence.entities.trainer.Trainer
 
 interface FindTrainerPokemonUseCase : FindPokemon
 
 fun interface FindPokemon {
-    fun findCapturedPokemon(trainerId: Long): CapturedResponseDto?
+    fun findCapturedPokemon(trainerId: Long): Trainer?
 }

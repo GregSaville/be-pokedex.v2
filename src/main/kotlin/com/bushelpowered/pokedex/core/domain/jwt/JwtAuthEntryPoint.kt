@@ -1,4 +1,4 @@
-package com.bushelpowered.pokedex.config
+package com.bushelpowered.pokedex.core.domain.jwt
 
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint

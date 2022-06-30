@@ -1,4 +1,4 @@
-package com.bushelpowered.pokedex.core.domain
+package com.bushelpowered.pokedex.adapter.persistence.entities.pokemon
 
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
 import com.bushelpowered.pokedex.adapter.persistence.entities.csv.Ability

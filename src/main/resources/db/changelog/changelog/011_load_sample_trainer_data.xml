@@ -13,25 +13,25 @@
             <column name="trainer_id" value="1"/>
             <column name="name" value="Red"/>
             <column name="email" value="red@palletTown.com"/>
-            <column name="password" value="pok3M4st3r"/>
+            <column name="password" value="$2a$12$pWpsjYc11pl1F63XaD01XuKLK.4B.dk7YoySh4xapOAWGhH4pnYda"/>
         </insert>
         <insert tableName="trainers">
             <column name="trainer_id" value="2"/>
             <column name="name" value="Gold"/>
             <column name="email" value="gold@newBarkTown.com"/>
-            <column name="password" value="superEncodedPassword"/>
+            <column name="password" value="$2a$12$ZJbH/MbGnn2BlCFnziepauA85.uAScKwNYNpTa2jBti7zdMgXn.k."/>
         </insert>
         <insert tableName="trainers">
             <column name="trainer_id" value="3"/>
             <column name="name" value="Ruby"/>
             <column name="email" value="ruby@littleRootTown.com"/>
-            <column name="password" value="$sTr1n6P4ssw0rDEnc0d3d"/>
+            <column name="password" value="$2a$12$gSeKNpIimsnk6A4wOdjIPut/DX6CUtLe2ATcY2HOJe0Tf1a9nNKt6"/>
         </insert>
         <insert tableName="trainers">
             <column name="trainer_id" value="4"/>
             <column name="name" value="Platinum"/>
             <column name="email" value="platinum@somethingTown.com"/>
-            <column name="password" value="thisPasswordisReallyEncyrpted"/>
+            <column name="password" value="$2a$12$svxmZVWqCh/ILNzalXqT7.YQdMyq3s5FCUy1CbWUwqF9BJVD2YCHm"/>
         </insert>
 
     </changeSet>

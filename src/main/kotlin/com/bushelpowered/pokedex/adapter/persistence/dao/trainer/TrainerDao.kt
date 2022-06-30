@@ -7,9 +7,10 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.trainer.Trainer
 import com.bushelpowered.pokedex.adapter.persistence.repository.capture.CapturedRepositoryPort
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 import java.security.SecureRandom
 
-@Component
+@Repository
 class TrainerDao(
     private val repo: TrainerRepository,
     private val capturedRepository: CapturedRepositoryPort

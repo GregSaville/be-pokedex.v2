@@ -1,8 +1,7 @@
-package com.bushelpowered.pokedex.config
+package com.bushelpowered.pokedex.core.domain.jwt
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.util.*
@@ -17,7 +16,7 @@ class TokenManager : java.io.Serializable {
 
     fun generateJwtToken(userDetails: UserDetails): String {
         val claims = hashMapOf<String, Object>()
-        return Jwts.builder().setClaims(claims.toMap()).setSubject(userDetails.username)
+        return Jwts.builder().setClaims(claims as Map<String, Any>).setSubject(userDetails.username)
             .setIssuedAt(Date(System.currentTimeMillis()))
             .setExpiration(Date(System.currentTimeMillis() + tokenValidity * 1000))
             .signWith(SignatureAlgorithm.HS512, jwtSecret).compact()

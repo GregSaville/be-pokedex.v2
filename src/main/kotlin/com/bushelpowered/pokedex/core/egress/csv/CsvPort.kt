@@ -14,7 +14,7 @@ interface CsvPort :
     FindByGroup
 
 fun interface SavePokemonModel {
-    fun saveModel(pokemonModel: PokemonModel)
+    fun saveModel(pokemonModelEntity: PokemonModelEntity)
 }
 
 fun interface SavePokemonTypes {

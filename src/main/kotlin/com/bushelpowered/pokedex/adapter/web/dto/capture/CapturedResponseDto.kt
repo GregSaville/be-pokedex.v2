@@ -1,6 +1,6 @@
 package com.bushelpowered.pokedex.adapter.web.dto.capture
 
-import com.bushelpowered.pokedex.core.domain.Pokemon
+import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 
 data class CapturedResponseDto(
     val id: Long,

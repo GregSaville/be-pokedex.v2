@@ -4,8 +4,9 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.capture.Captured
 import com.bushelpowered.pokedex.adapter.persistence.repository.capture.CapturedRepositoryPort
 import com.bushelpowered.pokedex.core.egress.capture.CapturedPort
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
+@Repository
 class CapturedDao(private val captureRepo: CapturedRepositoryPort) : CapturedPort {
     override fun saveCaptured(captured: Captured): Boolean {
         return try {
@@ -15,5 +16,4 @@ class CapturedDao(private val captureRepo: CapturedRepositoryPort) : CapturedPor
             false
         }
     }
-
 }

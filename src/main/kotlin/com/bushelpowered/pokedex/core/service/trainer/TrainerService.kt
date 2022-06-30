@@ -2,6 +2,7 @@ package com.bushelpowered.pokedex.core.service.trainer
 
 import com.bushelpowered.pokedex.adapter.web.dto.trainer.TrainerRequestDto
 import com.bushelpowered.pokedex.adapter.web.dto.trainer.TrainerResponseDto
+import com.bushelpowered.pokedex.core.domain.model.trainer.TrainerModel
 import com.bushelpowered.pokedex.core.egress.trainer.TrainerPort
 import com.bushelpowered.pokedex.core.ingress.trainer.CrudTrainerUseCase
 import org.springframework.stereotype.Service
@@ -14,18 +15,18 @@ import org.valiktor.validate
 @Service
 class TrainerService(private val trainerPort: TrainerPort) : CrudTrainerUseCase {
 
-    override fun getAllTrainers(): List<TrainerResponseDto> {
-        val listOfTrainerResponse = mutableListOf<TrainerResponseDto>()
+    override fun getAllTrainers(): List<TrainerModel> {
+        val listOfTrainer = mutableListOf<TrainerModel>()
         trainerPort.findAllTrainers().forEach {
-            listOfTrainerResponse.add(TrainerResponseDto(it.id, it.name, it.email))
+            listOfTrainer.add(TrainerModel(it.id, it.name, it.email, it.getPassword(), it.capturedPokemon))
         }
-        return listOfTrainerResponse.toList()
+        return listOfTrainer.toList()
     }
 
-    override fun getById(id: Long): TrainerResponseDto? {
+    override fun getById(id: Long): TrainerModel? {
         val tmpTrainer = trainerPort.findTrainerById(id)
         return if (tmpTrainer != null) {
-            TrainerResponseDto(tmpTrainer.id, tmpTrainer.name, tmpTrainer.email)
+            TrainerModel(tmpTrainer.id, tmpTrainer.name, tmpTrainer.email, tmpTrainer.getPassword(), tmpTrainer.capturedPokemon)
         } else null
     }
 
@@ -36,7 +37,12 @@ class TrainerService(private val trainerPort: TrainerPort) : CrudTrainerUseCase 
                 validate(TrainerRequestDto::email).isEmail()
                 validate(TrainerRequestDto::password).hasSize(min = 6)
             }
-            trainerPort.addTrainer(trainer)
+            if(trainerPort.findTrainerByEmail(trainer.email) == null){
+                trainerPort.addTrainer(trainer)
+            }else{
+                println("Trainer already exists with email : ${trainer.email}")
+                false
+            }
         } catch (ex: ConstraintViolationException) {
             ex.constraintViolations.map { "${it.property}: ${it.constraint.name}" }.forEach(::println)
             false

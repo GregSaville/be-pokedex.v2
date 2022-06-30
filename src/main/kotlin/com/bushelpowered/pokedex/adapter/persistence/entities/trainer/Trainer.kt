@@ -1,6 +1,6 @@
 package com.bushelpowered.pokedex.adapter.persistence.entities.trainer
 
-import com.bushelpowered.pokedex.core.domain.Pokemon
+import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import javax.persistence.*
 
 @Table(name = "trainers")

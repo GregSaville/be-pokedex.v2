@@ -6,7 +6,7 @@ import javax.persistence.Table
 
 @Table(name = "pokemon")
 @Entity
-data class PokemonModel(
+data class PokemonModelEntity(
     @Id
     val id: String,
     val name: String,

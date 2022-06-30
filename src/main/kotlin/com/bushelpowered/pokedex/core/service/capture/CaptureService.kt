@@ -1,6 +1,7 @@
 package com.bushelpowered.pokedex.core.service.capture
 
 import com.bushelpowered.pokedex.adapter.persistence.entities.capture.Captured
+import com.bushelpowered.pokedex.adapter.persistence.entities.trainer.Trainer
 import com.bushelpowered.pokedex.adapter.web.dto.capture.CapturedResponseDto
 import com.bushelpowered.pokedex.core.egress.capture.CapturedPort
 import com.bushelpowered.pokedex.core.egress.trainer.TrainerPort
@@ -14,28 +15,19 @@ class CaptureService(
     private val trainerPort: TrainerPort
 ) : CapturePokemonUseCase, FindTrainerPokemonUseCase {
 
-    override fun capturePokemon(pokeId: String, trainerId: Long): CapturedResponseDto? {
+    override fun capturePokemon(pokeId: String, trainerId: Long): Captured? {
         val trainer = trainerPort.findTrainerById(trainerId)
         return if (trainer != null) {
-            capturedPort.saveCaptured(Captured(trainer.id.toString() + "-" + pokeId, trainer.id, pokeId))
-            CapturedResponseDto(
-                trainer.id,
-                trainer.name,
-                trainer.email,
-                trainer.capturedPokemon
-            )
+            val newCapture = Captured(trainer.id.toString() + "-" + pokeId, trainer.id, pokeId)
+            capturedPort.saveCaptured(newCapture)
+            newCapture
         } else null
     }
 
-    override fun findCapturedPokemon(trainerId: Long): CapturedResponseDto? {
+    override fun findCapturedPokemon(trainerId: Long): Trainer? {
         val tmpTrainer = trainerPort.findTrainerById(trainerId)
         return if (tmpTrainer != null) {
-            CapturedResponseDto(
-                tmpTrainer.id,
-                tmpTrainer.name,
-                tmpTrainer.email,
-                tmpTrainer.capturedPokemon
-            )
+            return tmpTrainer
         } else null
     }
 

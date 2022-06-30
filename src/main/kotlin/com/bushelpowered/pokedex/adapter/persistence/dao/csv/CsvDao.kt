@@ -4,8 +4,9 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.csv.*
 import com.bushelpowered.pokedex.adapter.persistence.repository.csv.*
 import com.bushelpowered.pokedex.core.egress.csv.CsvPort
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
+@Repository
 class CsvDao(
     private val pokemonModelRepo: PokemonModelRepository,
     private val pokemonTypesRepo: PokemonTypesRepository,
@@ -16,8 +17,8 @@ class CsvDao(
     private val statsRepo: StatsRepository
 ) : CsvPort {
 
-    override fun saveModel(pokemonModel: PokemonModel) {
-        pokemonModelRepo.save(pokemonModel)
+    override fun saveModel(pokemonModelEntity: PokemonModelEntity) {
+        pokemonModelRepo.save(pokemonModelEntity)
     }
 
     override fun savePokemonTypes(pokemonType: PokemonTypes) {

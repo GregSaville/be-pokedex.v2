@@ -1,4 +1,4 @@
-package com.bushelpowered.pokedex.config
+package com.bushelpowered.pokedex.core.domain.model.jwt
 
 import java.io.Serializable
 

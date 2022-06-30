@@ -1,16 +1,14 @@
 package com.bushelpowered.pokedex.adapter.web.controller.jwt
 
-import com.bushelpowered.pokedex.config.JwtRequestModel
-import com.bushelpowered.pokedex.config.JwtResponseModel
-import com.bushelpowered.pokedex.config.JwtUserDetailsService
-import com.bushelpowered.pokedex.config.TokenManager
+import com.bushelpowered.pokedex.core.domain.model.jwt.JwtRequestModel
+import com.bushelpowered.pokedex.core.domain.model.jwt.JwtResponseModel
+import com.bushelpowered.pokedex.core.service.jwt.JwtUserDetailsService
+import com.bushelpowered.pokedex.core.domain.jwt.TokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController
 @CrossOrigin
 class JwtController(private val jwtUserDetailsService: JwtUserDetailsService,
                     private val authenticationManager: AuthenticationManager,
-                    private val tokenManager: TokenManager){
+                    private val tokenManager: TokenManager
+){
 
     @PostMapping("/login")
     fun login(@RequestBody request : JwtRequestModel): ResponseEntity<JwtResponseModel> {

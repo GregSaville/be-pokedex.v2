@@ -1,7 +1,7 @@
 package com.bushelpowered.pokedex.core.egress.pokemon
 
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
-import com.bushelpowered.pokedex.core.domain.Pokemon
+import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 

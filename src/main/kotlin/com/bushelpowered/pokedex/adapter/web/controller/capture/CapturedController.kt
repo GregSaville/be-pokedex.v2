@@ -1,12 +1,13 @@
 package com.bushelpowered.pokedex.adapter.web.controller.capture
 
+import com.bushelpowered.pokedex.adapter.persistence.entities.capture.Captured
+import com.bushelpowered.pokedex.adapter.persistence.entities.trainer.Trainer
 import com.bushelpowered.pokedex.adapter.web.dto.capture.CapturedResponseDto
 import com.bushelpowered.pokedex.core.ingress.trainer.CrudTrainerUseCase
-import com.bushelpowered.pokedex.core.service.capture.CaptureService
 import com.bushelpowered.pokedex.adapter.web.controller.capture.utility.ValidateHelper
+import com.bushelpowered.pokedex.core.domain.model.trainer.TrainerModel
 import com.bushelpowered.pokedex.core.ingress.capture.CapturePokemonUseCase
 import com.bushelpowered.pokedex.core.ingress.capture.FindTrainerPokemonUseCase
-import com.bushelpowered.pokedex.core.ingress.pokemon.FindPokemonUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -25,7 +26,8 @@ class CapturedController(
         return if (currentTrainer != null) {
             if (ValidateHelper().isNumber(pokeId)) {
                 if (pokeId.toInt() in 1..553) {
-                    ResponseEntity.ok(captureUseCase.capturePokemon(pokeId, currentTrainer.id))
+                    val newCapture = captureUseCase.capturePokemon(pokeId, currentTrainer.id)
+                    ResponseEntity.ok(newCapture!!.toResponse(currentTrainer))
                 } else ResponseEntity.badRequest().build()
             } else ResponseEntity.badRequest().build()
         } else (ResponseEntity.notFound().build())
@@ -33,9 +35,18 @@ class CapturedController(
 
     @GetMapping("/{id}/captured")
     fun getCapturedPokemon(@PathVariable id: Long): ResponseEntity<CapturedResponseDto> {
-        return if (trainerUseCase.getById(id) != null) {
-            ResponseEntity.ok(findCapturedUseCase.findCapturedPokemon(id))
+        val trainer = trainerUseCase.getById(id)
+        return if (trainer != null) {
+            ResponseEntity.ok(findCapturedUseCase.findCapturedPokemon(trainer.id)!!.toResponse())
         } else (ResponseEntity.notFound().build())
     }
 
+}
+
+private fun Trainer.toResponse(): CapturedResponseDto {
+    return CapturedResponseDto(this.id, this.name, this.email, this.capturedPokemon)
+}
+
+private fun Captured.toResponse(trainer: TrainerModel): CapturedResponseDto {
+    return CapturedResponseDto(trainer.id, trainer.name, trainer.email, trainer.capturedPokemon)
 }
