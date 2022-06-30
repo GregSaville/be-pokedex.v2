@@ -30,7 +30,7 @@ class PokemonService(
     override fun findByType(type: List<String>, page: Int): Page<Pokemon>? {
         val pokeList = mutableListOf<String>()
         return if (typePort.validateTypes(listOf(type[0].dropLast(1)))) {
-            val result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(type[0].dropLast(1))))
+            val result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(type[0].dropLast(1))!!))
             result.forEach {
                 if (it.type.size == 1) {
                     pokeList.add(it.id)
@@ -44,11 +44,11 @@ class PokemonService(
         val typeOneList = mutableListOf<String>()
         val pokeList = mutableListOf<String>()
         return if (typePort.validateTypes(types)) {
-            var result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(types[0])))
+            var result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(types[0])!!))
             result.forEach {
                 typeOneList.add(it.id)
             }
-            result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(types[1])))
+            result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(types[1])!!))
             result.forEach {
                 if (typeOneList.contains(it.id)) {
                     pokeList.add(it.id)
@@ -61,7 +61,7 @@ class PokemonService(
     override fun findWithType(type: List<String>, page: Int): Page<Pokemon>? {
         val pokeList = mutableListOf<String>()
         return if (typePort.validateTypes(type)) {
-            val result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(type[0])))
+            val result = pokemonPort.findPokemonByTypeIn(listOf(typePort.getType(type[0])!!))
             result.forEach {
                 pokeList.add(it.id)
             }

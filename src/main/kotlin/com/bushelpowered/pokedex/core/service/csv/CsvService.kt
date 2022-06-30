@@ -54,7 +54,7 @@ class CsvService(
                     typeRepositoryPort.save(Type(typeCount.toString(), type))
                     typeCount += 1
                 }
-                val foundType = typeRepositoryPort.findByType(type)
+                val foundType = typeRepositoryPort.getType(type)
                 if (foundType != null) {
                     csvPort.savePokemonTypes(
                         PokemonTypes(
@@ -212,7 +212,7 @@ class CsvService(
     }
 
     private fun isTypePresent(type: String): Boolean {
-        return typeRepositoryPort.findByType(type) != null
+        return typeRepositoryPort.getType(type) != null
     }
 
 }

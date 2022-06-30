@@ -6,34 +6,19 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import com.bushelpowered.pokedex.core.egress.pokemon.PokemonPort
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
 
 
 @Repository
-class PokemonDao(private val repo: PokemonRepositoryPort) : PokemonPort {
+interface PokemonDao : PagingAndSortingRepository<Pokemon, String> {
 
-    override fun findAll(pageRequest: PageRequest): Page<Pokemon> {
-        return repo.findAll(pageRequest)
-    }
+    fun findByIdIn(pokeIdList : List<String>, page: PageRequest) : Page<Pokemon>
 
-    override fun findByIdIn(pokeIdList: List<String>, page: PageRequest): Page<Pokemon> {
-        return repo.findByIdIn(pokeIdList, page)
-    }
+    fun findByNameContaining(name: String, page: PageRequest): Page<Pokemon>
 
-    override fun findByNameContaining(name: String, page: PageRequest): Page<Pokemon> {
-        return repo.findByNameContaining(name, page)
-    }
-
-    override fun findPokemonByTypeIn(type: List<Type>): List<Pokemon> {
-        return repo.findPokemonByTypeIn(type)
-    }
-
-    override fun findById(id: String): Pokemon? {
-        val result = repo.findById(id)
-        return if (result.isPresent) {
-            result.get()
-        } else null
-    }
+    fun findPokemonByTypeIn(type: List<Type>): List<Pokemon>
 
 }

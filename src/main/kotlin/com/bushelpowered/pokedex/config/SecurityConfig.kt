@@ -5,6 +5,7 @@ import com.bushelpowered.pokedex.core.domain.jwt.JwtFilter
 import com.bushelpowered.pokedex.core.service.jwt.JwtUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -37,7 +38,8 @@ class SecurityConfig(private val authenticationEntryPoint: JwtAuthEntryPoint,
 
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
-            .authorizeRequests().antMatchers("/login","/signup","/api/pokemon**","/api/pokemon/**").permitAll()
+            .authorizeRequests().antMatchers("/login","/signup","/api/pokemon**","/api/pokemon/**","/api/types").permitAll()
+            .antMatchers(HttpMethod.DELETE, "api/trainers/**").hasAnyRole("ADMIN")
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
