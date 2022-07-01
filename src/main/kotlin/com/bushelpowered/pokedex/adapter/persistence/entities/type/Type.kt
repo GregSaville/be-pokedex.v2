@@ -10,7 +10,7 @@ data class Type(
 
     @Id
     @Column(name = "type_id")
-    val typeId: String,
+    val id: String,
 
 
     @JsonValue

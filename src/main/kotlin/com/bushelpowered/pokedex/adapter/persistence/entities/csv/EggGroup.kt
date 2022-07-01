@@ -8,7 +8,7 @@ import javax.persistence.*
 data class EggGroup(
     @Id
     @Column(name = "group_id")
-    val groupId: String,
+    val id: String,
 
     @JsonValue
     @Column(name = "group_name")

@@ -8,7 +8,7 @@ import javax.persistence.*
 data class Ability(
     @Id
     @Column(name = "ability_id")
-    val abilityId: String,
+    val id: String,
 
     @JsonValue
     val ability: String,

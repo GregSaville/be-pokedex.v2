@@ -32,11 +32,6 @@ class TrainerService(private val trainerPort: TrainerPort) : CrudTrainerUseCase 
 
     override fun addTrainer(trainer: TrainerRequestDto): Boolean {
         return try {
-            validate(TrainerRequestDto(trainer.name, trainer.email, trainer.password)) {
-                validate(TrainerRequestDto::name).isNotNull().hasSize(min = 2)
-                validate(TrainerRequestDto::email).isEmail()
-                validate(TrainerRequestDto::password).hasSize(min = 6)
-            }
             if(trainerPort.findTrainerByEmail(trainer.email) == null){
                 trainerPort.addTrainer(trainer)
             }else{

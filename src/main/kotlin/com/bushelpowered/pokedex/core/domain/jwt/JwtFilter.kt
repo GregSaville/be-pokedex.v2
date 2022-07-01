@@ -33,8 +33,6 @@ class JwtFilter(private val jwtUserDetailsService: JwtUserDetailsService,
             } catch (e: ExpiredJwtException){
                 println("JWT Token has expired")
             }
-        } else {
-            println(" Bearer String not found in token")
         }
         if(username != null && SecurityContextHolder.getContext().authentication == null){
             val userDetails = jwtUserDetailsService.loadUserByUsername(username)

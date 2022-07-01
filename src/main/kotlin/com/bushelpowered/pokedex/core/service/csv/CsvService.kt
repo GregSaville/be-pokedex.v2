@@ -58,7 +58,7 @@ class CsvService(
                 if (foundType != null) {
                     csvPort.savePokemonTypes(
                         PokemonTypes(
-                            pokemonTypeCount.toString(), id, foundType.typeId
+                            pokemonTypeCount.toString(), id, foundType.id
                         )
                     )
                     pokemonTypeCount += 1
@@ -74,7 +74,7 @@ class CsvService(
                 if (foundAbility != null) {
                     csvPort.savePokemonAbility(
                         PokemonAbility(
-                            pokemonAbilityCount.toString(), id, foundAbility.abilityId
+                            pokemonAbilityCount.toString(), id, foundAbility.id
                         )
                     )
                     pokemonAbilityCount += 1
@@ -90,7 +90,7 @@ class CsvService(
                 if (foundGroup != null) {
                     csvPort.savePokemonEggGroup(
                         PokemonEggGroup(
-                            pokemonGroupCount.toString(), id, foundGroup.groupId
+                            pokemonGroupCount.toString(), id, foundGroup.id
                         )
                     )
                     pokemonGroupCount += 1
