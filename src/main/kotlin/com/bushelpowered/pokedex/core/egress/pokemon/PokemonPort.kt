@@ -5,7 +5,6 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 
-
 interface PokemonPort :
     FindPage,
     FindByIdIn,

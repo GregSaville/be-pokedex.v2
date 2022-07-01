@@ -2,7 +2,6 @@ package com.bushelpowered.pokedex.core.egress.type
 
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
 
-
 interface TypePort :
     FindAll,
     GetType,
@@ -21,6 +20,6 @@ fun interface ValidateTypes {
     fun validateTypes(types: List<String>): Boolean
 }
 
-fun interface Save{
+fun interface Save {
     fun save(type: Type)
 }

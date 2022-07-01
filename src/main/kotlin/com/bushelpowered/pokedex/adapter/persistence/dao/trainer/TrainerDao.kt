@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository
 
 
 @Repository
-interface TrainerDao: JpaRepository<Trainer, Long> {
-    fun findTrainerByEmail(email:String): Trainer?
+interface TrainerDao : JpaRepository<Trainer, Long> {
+    fun findTrainerByEmail(email: String): Trainer?
 }

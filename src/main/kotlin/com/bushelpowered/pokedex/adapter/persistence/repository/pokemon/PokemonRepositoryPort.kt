@@ -6,12 +6,10 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
 import com.bushelpowered.pokedex.core.egress.pokemon.PokemonPort
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Repository
 
 @Component
-class PokemonRepositoryPort(private val pokemonDao: PokemonDao) : PokemonPort{
+class PokemonRepositoryPort(private val pokemonDao: PokemonDao) : PokemonPort {
 
 
     override fun findAll(pageRequest: PageRequest): Page<Pokemon> {

@@ -2,7 +2,6 @@ package com.bushelpowered.pokedex.core.service.capture
 
 import com.bushelpowered.pokedex.adapter.persistence.entities.capture.Captured
 import com.bushelpowered.pokedex.adapter.persistence.entities.trainer.Trainer
-import com.bushelpowered.pokedex.adapter.web.dto.capture.CapturedResponseDto
 import com.bushelpowered.pokedex.core.egress.capture.CapturedPort
 import com.bushelpowered.pokedex.core.egress.trainer.TrainerPort
 import com.bushelpowered.pokedex.core.ingress.capture.CapturePokemonUseCase

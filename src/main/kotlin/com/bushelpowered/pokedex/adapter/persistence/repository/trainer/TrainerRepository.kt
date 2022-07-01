@@ -5,17 +5,15 @@ import com.bushelpowered.pokedex.adapter.persistence.dao.trainer.TrainerDao
 import com.bushelpowered.pokedex.adapter.persistence.entities.trainer.Trainer
 import com.bushelpowered.pokedex.adapter.web.dto.trainer.TrainerRequestDto
 import com.bushelpowered.pokedex.core.egress.trainer.TrainerPort
-import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Repository
 import java.security.SecureRandom
 
 @Component
 class TrainerRepositoryPort(
     private val trainerDao: TrainerDao,
     private val capturedDao: CapturedDao,
-    ): TrainerPort {
+) : TrainerPort {
 
     val encoder = BCryptPasswordEncoder(10, SecureRandom())
 

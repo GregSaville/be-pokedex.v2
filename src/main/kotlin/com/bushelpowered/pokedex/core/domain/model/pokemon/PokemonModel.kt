@@ -5,7 +5,6 @@ import com.bushelpowered.pokedex.adapter.persistence.entities.csv.EggGroup
 import com.bushelpowered.pokedex.adapter.persistence.entities.csv.Stats
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
 
-
 data class PokemonModel(
     val id: String,
     val name: String,

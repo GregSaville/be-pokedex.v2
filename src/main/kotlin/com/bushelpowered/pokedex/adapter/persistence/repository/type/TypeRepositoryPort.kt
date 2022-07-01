@@ -3,13 +3,10 @@ package com.bushelpowered.pokedex.adapter.persistence.repository.type
 import com.bushelpowered.pokedex.adapter.persistence.dao.type.TypeDao
 import com.bushelpowered.pokedex.adapter.persistence.entities.type.Type
 import com.bushelpowered.pokedex.core.egress.type.TypePort
-import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Repository
-
 
 @Component
-class TypeRepositoryPort(private val typeDao: TypeDao) : TypePort{
+class TypeRepositoryPort(private val typeDao: TypeDao) : TypePort {
 
     override fun findAll(): List<Type> {
         return typeDao.findAll()

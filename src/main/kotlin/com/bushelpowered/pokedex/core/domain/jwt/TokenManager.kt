@@ -9,10 +9,10 @@ import java.util.*
 @Component
 class TokenManager : java.io.Serializable {
 
-    private val serialVersionUID : Long = 7008375124389347049L
-    private val tokenValidity : Long = 10 * 60 * 60
+    private val serialVersionUID: Long = 7008375124389347049L
+    private val tokenValidity: Long = 10 * 60 * 60
 
-    private val jwtSecret : String = "pokedexJWTSecret"
+    private val jwtSecret: String = "pokedexJWTSecret"
 
     fun generateJwtToken(userDetails: UserDetails): String {
         val claims = hashMapOf<String, Object>()
@@ -22,14 +22,14 @@ class TokenManager : java.io.Serializable {
             .signWith(SignatureAlgorithm.HS512, jwtSecret).compact()
     }
 
-    fun validateJwtToken(token : String, userDetails: UserDetails) : Boolean{
+    fun validateJwtToken(token: String, userDetails: UserDetails): Boolean {
         val username = getUsernameFromToken(token)
         val claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).body
         val isTokenExpired = claims.expiration.before(Date())
         return (username == userDetails.username && !isTokenExpired)
     }
 
-    fun getUsernameFromToken(token : String) : String{
+    fun getUsernameFromToken(token: String): String {
         val claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).body
         return claims.subject
     }

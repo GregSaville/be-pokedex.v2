@@ -1,6 +1,5 @@
 package com.bushelpowered.pokedex.adapter.persistence.repository.csv
 
-
 import com.bushelpowered.pokedex.adapter.persistence.dao.csv.*
 import com.bushelpowered.pokedex.adapter.persistence.entities.csv.*
 import com.bushelpowered.pokedex.core.egress.csv.CsvPort
@@ -15,7 +14,7 @@ class CsvRepositoryPort(
     private val pokemonModelDao: PokemonModelDao,
     private val pokemonTypesDao: PokemonTypesDao,
     private val statsDao: StatsDao
-) : CsvPort{
+) : CsvPort {
     override fun saveModel(pokemonModelEntity: PokemonModelEntity) {
         pokemonModelDao.save(pokemonModelEntity)
     }

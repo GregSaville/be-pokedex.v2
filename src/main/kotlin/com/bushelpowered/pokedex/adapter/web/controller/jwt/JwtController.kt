@@ -16,20 +16,21 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @CrossOrigin
-class JwtController(private val jwtUserDetailsService: JwtUserDetailsService,
-                    private val authenticationManager: AuthenticationManager,
-                    private val tokenManager: TokenManager
-){
+class JwtController(
+    private val jwtUserDetailsService: JwtUserDetailsService,
+    private val authenticationManager: AuthenticationManager,
+    private val tokenManager: TokenManager
+) {
 
     @PostMapping("/login")
-    fun login(@RequestBody request : JwtRequestModel): ResponseEntity<JwtResponseModel> {
-        try{
+    fun login(@RequestBody request: JwtRequestModel): ResponseEntity<JwtResponseModel> {
+        try {
             authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(request.username, request.password)
             )
-        }catch(e : DisabledException){
+        } catch (e: DisabledException) {
             throw Exception("USER_DISABLED", e)
-        }catch(e : BadCredentialsException){
+        } catch (e: BadCredentialsException) {
             throw Exception("INVALID_CREDENTIALS", e)
         }
         val userDetails = jwtUserDetailsService.loadUserByUsername(request.username)

@@ -16,7 +16,7 @@ class TrainerController(private val trainerUseCase: CrudTrainerUseCase) {
         val result = trainerUseCase.getAllTrainers()
         val responseList = mutableListOf<TrainerResponseDto>()
         return if (result.isNotEmpty()) {
-            result.forEach{
+            result.forEach {
                 responseList.add(it.toResponse())
             }
             ResponseEntity.ok(responseList)

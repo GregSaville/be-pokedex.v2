@@ -1,7 +1,6 @@
 package com.bushelpowered.pokedex.core.ingress.trainer
 
 import com.bushelpowered.pokedex.adapter.web.dto.trainer.TrainerRequestDto
-import com.bushelpowered.pokedex.adapter.web.dto.trainer.TrainerResponseDto
 import com.bushelpowered.pokedex.core.domain.model.trainer.TrainerModel
 
 interface CrudTrainerUseCase :

@@ -1,9 +1,7 @@
 package com.bushelpowered.pokedex.adapter.web.controller.pokemon
 
-import com.bushelpowered.pokedex.adapter.persistence.entities.pokemon.Pokemon
 import com.bushelpowered.pokedex.core.domain.model.pokemon.PokemonModel
 import com.bushelpowered.pokedex.core.ingress.pokemon.FindPokemonUseCase
-import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 

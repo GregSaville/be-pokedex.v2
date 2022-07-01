@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository
 @Repository
 interface EggGroupDao : JpaRepository<EggGroup, String> {
     fun findByGroup(group: String): EggGroup?
-
 }

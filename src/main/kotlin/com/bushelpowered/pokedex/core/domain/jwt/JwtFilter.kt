@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class JwtFilter(private val jwtUserDetailsService: JwtUserDetailsService,
-                private val tokenManager: TokenManager
-                ): OncePerRequestFilter() {
+class JwtFilter(
+    private val jwtUserDetailsService: JwtUserDetailsService,
+    private val tokenManager: TokenManager
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -22,25 +23,26 @@ class JwtFilter(private val jwtUserDetailsService: JwtUserDetailsService,
         filterChain: FilterChain
     ) {
         val tokenHeader = request.getHeader("Authorization")
-        var username : String? = null
+        var username: String? = null
         var token: String? = null
-        if(tokenHeader != null && tokenHeader.startsWith("Bearer ")){
+        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
             token = tokenHeader.substring(7)
-            try{
+            try {
                 username = tokenManager.getUsernameFromToken(token)
-            } catch(e : java.lang.IllegalArgumentException){
+            } catch (e: java.lang.IllegalArgumentException) {
                 println("Unable to get JWT Token")
-            } catch (e: ExpiredJwtException){
+            } catch (e: ExpiredJwtException) {
                 println("JWT Token has expired")
             }
         }
-        if(username != null && SecurityContextHolder.getContext().authentication == null){
+        if (username != null && SecurityContextHolder.getContext().authentication == null) {
             val userDetails = jwtUserDetailsService.loadUserByUsername(username)
-            if(tokenManager.validateJwtToken(token!!, userDetails)){
+            if (tokenManager.validateJwtToken(token!!, userDetails)) {
                 val authToken = UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
-                    userDetails.authorities)
+                    userDetails.authorities
+                )
                 authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authToken
             }
