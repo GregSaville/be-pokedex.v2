@@ -1,5 +1,6 @@
 package com.bushelpowered.pokedex.core.service.trainer
 
+import com.bushelpowered.pokedex.adapter.persistence.entities.trainer.Trainer
 import com.bushelpowered.pokedex.adapter.web.dto.trainer.TrainerRequestDto
 import com.bushelpowered.pokedex.core.domain.model.trainer.TrainerModel
 import com.bushelpowered.pokedex.core.egress.trainer.TrainerPort
@@ -14,22 +15,14 @@ class TrainerService(private val trainerPort: TrainerPort) : CrudTrainerUseCase 
     override fun getAllTrainers(): List<TrainerModel> {
         val listOfTrainer = mutableListOf<TrainerModel>()
         trainerPort.findAllTrainers().forEach {
-            listOfTrainer.add(TrainerModel(it.id, it.name, it.email, it.getPassword(), it.capturedPokemon))
+            listOfTrainer.add(it.toModel())
         }
         return listOfTrainer.toList()
     }
 
     override fun getById(id: Long): TrainerModel? {
         val tmpTrainer = trainerPort.findTrainerById(id)
-        return if (tmpTrainer != null) {
-            TrainerModel(
-                tmpTrainer.id,
-                tmpTrainer.name,
-                tmpTrainer.email,
-                tmpTrainer.getPassword(),
-                tmpTrainer.capturedPokemon
-            )
-        } else null
+        return tmpTrainer?.toModel()
     }
 
     override fun addTrainer(trainer: TrainerRequestDto): Boolean {
@@ -51,4 +44,18 @@ class TrainerService(private val trainerPort: TrainerPort) : CrudTrainerUseCase 
         return trainerPort.removeTrainer(id)
     }
 
+    override fun getByEmail(email: String): TrainerModel? {
+        return trainerPort.findTrainerByEmail(email)?.toModel()
+    }
+
+}
+
+private fun Trainer.toModel(): TrainerModel {
+    return TrainerModel(
+        this.id,
+        this.name,
+        this.email,
+        this.getPassword(),
+        this.capturedPokemon
+    )
 }

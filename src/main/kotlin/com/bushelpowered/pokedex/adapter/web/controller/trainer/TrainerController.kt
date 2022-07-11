@@ -23,13 +23,7 @@ class TrainerController(private val trainerUseCase: CrudTrainerUseCase) {
         } else ResponseEntity.notFound().build()
     }
 
-    @GetMapping("/api/trainers/{id}")
-    fun getById(@PathVariable id: Long): ResponseEntity<TrainerResponseDto> {
-        val currentTrainer = trainerUseCase.getById(id)
-        return if (currentTrainer != null) {
-            ResponseEntity.ok(currentTrainer.toResponse())
-        } else ResponseEntity.notFound().build()
-    }
+
 
     @PostMapping("/signup")
     fun addTrainer(@RequestBody trainer: TrainerRequestDto): ResponseEntity<TrainerResponseDto> {

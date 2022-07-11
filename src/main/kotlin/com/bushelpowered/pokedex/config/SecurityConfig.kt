@@ -37,7 +37,7 @@ class SecurityConfig(private val authenticationEntryPoint: JwtAuthEntryPoint,
     }
 
     override fun configure(http: HttpSecurity) {
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
             .authorizeRequests().antMatchers("/login","/signup","/api/pokemon**","/api/pokemon/**","/api/types").permitAll()
             .antMatchers(HttpMethod.DELETE, "api/trainers/**").hasAnyRole("ADMIN")
             .anyRequest().authenticated()

@@ -41,9 +41,21 @@ class CapturedController(
         } else (ResponseEntity.notFound().build())
     }
 
+    @GetMapping("/{email}")
+    fun getByEmail(@PathVariable email: String): ResponseEntity<CapturedResponseDto> {
+        val currentTrainer = trainerUseCase.getByEmail(email)
+        return if (currentTrainer != null) {
+            ResponseEntity.ok(currentTrainer.toResponse())
+        } else ResponseEntity.notFound().build()
+    }
+
 }
 
 private fun Trainer.toResponse(): CapturedResponseDto {
+    return CapturedResponseDto(this.id, this.name, this.email, this.capturedPokemon)
+}
+
+private fun TrainerModel.toResponse(): CapturedResponseDto {
     return CapturedResponseDto(this.id, this.name, this.email, this.capturedPokemon)
 }
 
